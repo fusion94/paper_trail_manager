@@ -2,6 +2,8 @@ Dummy::Application.routes.draw do
   root :to => 'application#index'
 
   resources :changes, :controller => 'paper_trail_manager/changes'
+  resources :entities
+  resources :platforms
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
