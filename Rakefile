@@ -35,3 +35,13 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency "paper_trail", "~> 2"
   gem.add_dependency("haml", "~> 3.0.0")
 end
+
+namespace :spork do
+  task :spec do
+    exec "rspec --drb spec"
+  end
+
+  task :serve do
+    exec "spork"
+  end
+end
