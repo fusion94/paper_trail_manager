@@ -1,0 +1,31 @@
+%tr.change_row
+  %td.change_time
+    == Change ##{version.id}
+    %br
+    = version.created_at.strftime('%Y-%m-%d')
+    %br
+    = version.created_at.strftime('%H:%M:%S')
+  %td.change_details
+    %p.change_details_description
+      = version.event.upcase
+      = version.item_type
+      == ##{version.item_id}
+      = change_item_link(version)
+      &nbsp;
+      - if change_revert_allowed?(version)
+        = link_to '[Rollback]', change_path(version), :method => 'put', :confirm => 'Are you sure?'
+      - if version.whodunnit
+        - if user = Member.find(version.whodunnit) rescue nil
+          by
+          = link_to(h(user.name), user_path(user))
+
+    - if version.event == 'update' or version.event == 'create'
+      - changes = changes_for(version)
+      %table.change_details_table
+        - changes.keys.sort.each do |key|
+          %tr{:class => cycle('odd', 'even')}
+            %td.change_detail_key= key
+            %td.change_detail_value= text_or_nil(changes[key][:previous])
+            %td.change_detail_spacer &rarr;
+            %td.change_detail_value.change_detail_value2= text_or_nil(changes[key][:current])
+        - reset_cycle('change_detail')

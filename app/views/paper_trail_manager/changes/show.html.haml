@@ -1,0 +1,8 @@
+%h1 
+  == Change ##{@version.id}
+
+%table.changes_table
+  %tr.changes_header
+    %th.change_time Time
+    %th.change_details Attribute with previous and current values
+    = render :partial => 'version', :object => @version
