@@ -77,4 +77,6 @@ RSpec.configure do |config|
 
   # == Mock Framework
   config.mock_with :rspec
+
+  config.use_transactional_fixtures = true
 end
