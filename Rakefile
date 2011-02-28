@@ -28,7 +28,8 @@ require "jeweler"
 Jeweler::Tasks.new do |gem|
   gem.name = "paper_trail_manager"
   gem.summary = gem.description = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
-  gem.files = Dir["{app,lib,spec}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md", "VERSION", "paper_trail_manager.gemspec", "Gemfile", "Gemfile.lock"]
+  gem.files = Dir["{app,lib,spec}/**/*"] + ["LICENSE.txt", "Rakefile", "README.md", "VERSION", "paper_trail_manager.gemspec", "Gemfile", "Gemfile.lock"] - Dir["spec/dummy/{log,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
+
   gem.authors = ["Igal Koshevoy"]
   gem.email = "igal@pragmaticraft.com"
   gem.homepage = "http://github.com/igal/paper_trail_manager"
