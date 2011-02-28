@@ -10,9 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110228091428) do
+ActiveRecord::Schema.define(:version => 20110228093241) do
 
   create_table "entities", :force => true do |t|
+    t.string   "name"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "platforms", :force => true do |t|
     t.string   "name"
     t.string   "status"
     t.datetime "created_at"
