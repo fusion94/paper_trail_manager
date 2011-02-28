@@ -1,0 +1,2 @@
+module PaperTrailManager
+end
