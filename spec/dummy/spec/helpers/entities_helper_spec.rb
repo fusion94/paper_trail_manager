@@ -11,5 +11,5 @@ require 'spec_helper'
 #   end
 # end
 describe EntitiesHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  #IK# pending "add some examples to (or delete) #{__FILE__}"
 end
