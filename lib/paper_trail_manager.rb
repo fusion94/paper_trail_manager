@@ -11,7 +11,16 @@ require 'paper_trail'
 #   PaperTrailManager.allow_revert_when do |controller, version|
 #     controller.current_user and controller.current_user.admin?
 #   end
+#
+#   To specify how to look up users/memebers/etc specified in Paper Trail's 'whodunnit' column:
+#
+#   PaperTrailManager.whodunnit_class = User
+#   PaperTrailManager.whodunnit_name_method = :nicename   # defaults to :name
+#
 class PaperTrailManager < Rails::Engine
+  @@whodunnit_name_method = :name
+  cattr_accessor :whodunnit_class, :whodunnit_name_method
+
   (Pathname(__FILE__).dirname + '..').tap do |base|
     paths.app.controllers = base + 'app/controllers'
     paths.app.views = base + 'app/views'
