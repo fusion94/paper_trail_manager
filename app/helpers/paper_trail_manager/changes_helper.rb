@@ -80,7 +80,7 @@ class PaperTrailManager
 
     # Returns HTML link for the item stored in the version, e.g. a link to a Company record stored in the version.
     def change_item_link(version)
-      return link_to(change_title_for(version), change_item_url(version))
+      return link_to(change_title_for(version), change_item_url(version), :class => 'change_item')
     end
   end
 end
