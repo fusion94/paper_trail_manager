@@ -11,14 +11,14 @@
       %span.item_type= version.item_type
       %span.item_id== ##{version.item_id}
       = change_item_link(version)
-      &nbsp;
-      - if change_revert_allowed?(version)
-        = link_to '[Rollback]', change_path(version), :method => 'put', :confirm => 'Are you sure?', :class => 'rollback'
       - if PaperTrailManager.whodunnit_class
         - if version.whodunnit
           - if user = PaperTrailManager.whodunnit_class.find(version.whodunnit) rescue nil
             by
             = link_to(h(user.send(PaperTrailManager.whodunnit_name_method)), user_path(user))
+      - if change_revert_allowed?(version)
+        = link_to '[Rollback]', change_path(version), :method => 'put', :confirm => 'Are you sure?', :class => 'rollback'
+
 
     - if version.event == 'update' or version.event == 'create'
       - changes = changes_for(version)
