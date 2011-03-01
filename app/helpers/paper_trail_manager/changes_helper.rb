@@ -53,7 +53,7 @@ class PaperTrailManager
         next if name == "created_at"
         current_value = current.read_attribute(name) if current
         previous_value = previous.read_attribute(name) if previous
-        unless current_value == previous_value
+        unless current_value == previous_value || (version.event == "create" && current_value.blank?)
           changes[name] = {
             :previous => previous_value,
             :current => current_value,
