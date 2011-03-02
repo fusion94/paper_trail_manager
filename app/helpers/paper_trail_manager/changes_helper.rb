@@ -70,7 +70,15 @@ class PaperTrailManager
       previous = version.reify rescue nil
       record = version.item_type.constantize.find(version.item_id) rescue nil
 
-      return h(previous.try(:name) || current.try(:name) || record.try(:name))
+      [:name, :title, :to_s].each do |name_method|
+        [previous, current, record].each do |obj|
+          name = obj.send(name_method) if obj.respond_to?(name_method)
+          break if name
+        end
+        break if name
+      end
+
+      return h(name)
     end
 
     # Returns sorted array of types of items that there are changes for.
