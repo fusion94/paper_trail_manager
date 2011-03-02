@@ -8,9 +8,14 @@ atom_feed do |feed|
 
     feed.entry(version, :url => change_url(version)) do |entry|
       changes = changes_for(version)
-      user = Member.find(version.whodunnit) rescue nil
 
-      entry.title "#{version.event.upcase} #{version.item_type} «#{change_title_for(version)}» #{user ? 'by '+user.name : ''}"
+      if PaperTrailManager.whodunnit_class && version.whodunnit
+        user = PaperTrailManager.whodunnit_class.find(version.whodunnit) rescue nil
+      else
+        user = nil
+      end
+
+      entry.title "#{version.event.upcase} #{version.item_type} «#{change_title_for(version)}» #{user ? 'by '+user.send(PaperTrailManager.whodunnit_name_method) : ''}"
       entry.updated version.created_at.utc.xmlschema
 
       xm = ::Builder::XmlMarkup.new
