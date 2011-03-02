@@ -70,6 +70,7 @@ class PaperTrailManager
       previous = version.reify rescue nil
       record = version.item_type.constantize.find(version.item_id) rescue nil
 
+      name = nil
       [:name, :title, :to_s].each do |name_method|
         [previous, current, record].each do |obj|
           name = obj.send(name_method) if obj.respond_to?(name_method)
@@ -88,7 +89,11 @@ class PaperTrailManager
 
     # Returns HTML link for the item stored in the version, e.g. a link to a Company record stored in the version.
     def change_item_link(version)
-      return link_to(change_title_for(version), change_item_url(version), :class => 'change_item')
+      if url = change_item_url(version)
+        return link_to(change_title_for(version), url, :class => 'change_item')
+      else
+        return content_tag(:span, change_title_for(version), :class => 'change_item')
+      end
     end
   end
 end
