@@ -35,6 +35,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/igal/paper_trail_manager"
   gem.add_dependency "paper_trail", "~> 2"
   gem.add_dependency("haml", "~> 3.0.0")
+  gem.add_dependency("will_paginate", "~> 3.0.pre2")
 end
 
 namespace :spork do

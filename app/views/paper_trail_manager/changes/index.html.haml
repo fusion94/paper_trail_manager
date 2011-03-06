@@ -8,13 +8,19 @@
   != ([link_to('All', changes_path)] + change_item_types.map { |type| link_to(type.pluralize, changes_path(:type => type)) }).join(' | ')
 
 %table.changes_table
-  %tr.changes_header
-    %th.change_time Time
-    %th.change_details Attribute with previous and current values
-  - if @versions.any?
-    - @versions.each do |version|
-      - next unless change_show_allowed?(version)
-      = render :partial => 'version', :object => version
-  - else
-    %td{:rowspan => 2}
-      &mdash; No changes found &mdash;
+  %tfoot
+    %tr
+      %td{:colspan => 2}
+        = will_paginate @versions
+  %thead
+    %tr.changes_header
+      %th.change_time Time
+      %th.change_details Attribute with previous and current values
+  %tbody
+    - if @versions.any?
+      - @versions.each do |version|
+        - next unless change_show_allowed?(version)
+        = render :partial => 'version', :object => version
+    - else
+      %td{:rowspan => 2}
+        &mdash; No changes found &mdash;

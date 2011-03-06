@@ -6,8 +6,6 @@ class PaperTrailManager::ChangesController < ApplicationController
       return(redirect_to root_url)
     end
 
-    # TODO add pagination
-    # @versions = Version.paginate(:page => params[:page], :order => 'created_at DESC', :per_page => 50)
     @versions = Version.order('created_at DESC, id DESC')
     if params[:type]
       @versions = @versions.where(:item_type => params[:type])
@@ -15,6 +13,9 @@ class PaperTrailManager::ChangesController < ApplicationController
     if params[:id]
       @versions = @versions.where(:item_id => params[:id])
     end
+
+    @versions = @versions.paginate(:page => params[:page], :per_page => 50)
+
     respond_to do |format|
       format.html # index.html.erb
       format.atom # index.atom.builder
