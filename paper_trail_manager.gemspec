@@ -176,9 +176,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<spork>, ["~> 0.9.0.rc"])
       s.add_runtime_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_runtime_dependency(%q<ruby-debug>, [">= 0"])
-      s.add_runtime_dependency(%q<paper_trail>, ["~> 2"])
-      s.add_runtime_dependency(%q<haml>, ["~> 3.0.0"])
-      s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
     else
       s.add_dependency(%q<rails>, ["~> 3.0.3"])
       s.add_dependency(%q<capybara>, [">= 0.4.0"])
@@ -191,9 +188,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<ruby-debug>, [">= 0"])
-      s.add_dependency(%q<paper_trail>, ["~> 2"])
-      s.add_dependency(%q<haml>, ["~> 3.0.0"])
-      s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
     end
   else
     s.add_dependency(%q<rails>, ["~> 3.0.3"])
@@ -207,9 +201,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<ruby-debug>, [">= 0"])
-    s.add_dependency(%q<paper_trail>, ["~> 2"])
-    s.add_dependency(%q<haml>, ["~> 3.0.0"])
-    s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
   end
 end
 
