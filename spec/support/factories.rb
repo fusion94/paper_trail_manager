@@ -1,3 +1,5 @@
+require 'factory_girl'
+
 FactoryGirl.define do
   factory :entity do
     sequence(:name)   { |n| "name_#{n}" }
