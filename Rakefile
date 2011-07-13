@@ -44,3 +44,9 @@ namespace :spork do
     exec "spork"
   end
 end
+
+desc "Freshen files like Gemfile.lock and .gemspec"
+task :freshen do
+  sh "bundle check || bundle --local || bundle update --local || bundle update"
+  Rake::Task['gemspec'].invoke
+end
