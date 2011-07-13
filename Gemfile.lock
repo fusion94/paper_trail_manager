@@ -139,6 +139,7 @@ DEPENDENCIES
   jeweler (~> 1.5.2)
   paper_trail (~> 2.0)
   rails (~> 3.0)
+  rdoc
   rspec-rails (~> 2.5.0)
   ruby-debug
   spork (~> 0.9.0.rc)
