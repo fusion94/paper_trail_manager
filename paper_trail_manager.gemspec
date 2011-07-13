@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{paper_trail_manager}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Igal Koshevoy"]
-  s.date = %q{2011-07-09}
+  s.date = %q{2011-07-13}
   s.description = %q{A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications.}
   s.email = %q{igal@pragmaticraft.com}
   s.extra_rdoc_files = [
@@ -165,42 +165,45 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, ["~> 3.0.3"])
-      s.add_runtime_dependency(%q<capybara>, [">= 0.4.0"])
-      s.add_runtime_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_runtime_dependency(%q<rails>, ["~> 3.0"])
       s.add_runtime_dependency(%q<haml>, ["~> 3.0"])
       s.add_runtime_dependency(%q<paper_trail>, ["~> 2.0"])
       s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
-      s.add_runtime_dependency(%q<rspec-rails>, ["~> 2.5.0"])
-      s.add_runtime_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
-      s.add_runtime_dependency(%q<spork>, ["~> 0.9.0.rc"])
-      s.add_runtime_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_runtime_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
+      s.add_development_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_development_dependency(%q<rdoc>, [">= 0"])
+      s.add_development_dependency(%q<rspec-rails>, ["~> 2.5.0"])
+      s.add_development_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_development_dependency(%q<spork>, ["~> 0.9.0.rc"])
+      s.add_development_dependency(%q<sqlite3-ruby>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, ["~> 3.0.3"])
-      s.add_dependency(%q<capybara>, [">= 0.4.0"])
-      s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_dependency(%q<rails>, ["~> 3.0"])
       s.add_dependency(%q<haml>, ["~> 3.0"])
       s.add_dependency(%q<paper_trail>, ["~> 2.0"])
       s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
-      s.add_dependency(%q<rspec-rails>, ["~> 2.5.0"])
+      s.add_dependency(%q<capybara>, [">= 0.4.0"])
       s.add_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
-      s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
+      s.add_dependency(%q<rspec-rails>, ["~> 2.5.0"])
       s.add_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
+      s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, ["~> 3.0.3"])
-    s.add_dependency(%q<capybara>, [">= 0.4.0"])
-    s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+    s.add_dependency(%q<rails>, ["~> 3.0"])
     s.add_dependency(%q<haml>, ["~> 3.0"])
     s.add_dependency(%q<paper_trail>, ["~> 2.0"])
     s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
-    s.add_dependency(%q<rspec-rails>, ["~> 2.5.0"])
+    s.add_dependency(%q<capybara>, [">= 0.4.0"])
     s.add_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
-    s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
+    s.add_dependency(%q<rspec-rails>, ["~> 2.5.0"])
     s.add_dependency(%q<ruby-debug>, [">= 0"])
+    s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
+    s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
   end
 end
 
