@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{paper_trail_manager}
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Igal Koshevoy"]
-  s.date = %q{2011-07-09}
+  s.date = %q{2011-07-10}
   s.description = %q{A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications.}
   s.email = %q{igal@pragmaticraft.com}
   s.extra_rdoc_files = [
