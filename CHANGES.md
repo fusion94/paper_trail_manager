@@ -1,6 +1,9 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.1.2
+    * Switched template format from haml to erb for increased compatibility with non-haml apps.
+
 * 0.1.1
     * Fix `rake spec` to work with `factory_girl` 2.0.x gem.
 
