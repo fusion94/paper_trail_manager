@@ -1,0 +1,36 @@
+<tr class='change_row <%= "#{version.event}, #{version.item_type.downcase}" %>'>
+  <td class='change_time'>
+    <span class='change_id'>Change #<%= version.id %></span>
+    <div class='date'> <%= version.created_at.strftime('%Y-%m-%d') %> </div>
+    <div class='time'> <%= version.created_at.strftime('%H:%M:%S') %> </div>
+  </td>
+  <td class='change_details'>
+    <p class='change_details_description'>
+      <strong class='event'><%= version.event %></strong>
+      <span class='item_type'><%= version.item_type %></span>
+      <span class='item_id'><%= version.item_id %></span>
+      <%= change_item_link(version) %>
+      <% if PaperTrailManager.whodunnit_class && version.whodunnit %>
+        <% if user = PaperTrailManager.whodunnit_class.find(version.whodunnit) rescue nil %>
+          by <%= link_to(h(user.send(PaperTrailManager.whodunnit_name_method)), user_path(user)) %>
+        <% end %>
+      <% end %>
+      <% if change_revert_allowed?(version) %>
+        <%= link_to 'Roll back', change_path(version), :method => 'put', :confirm => 'Are you sure?', :class => 'rollback' %>
+      <% end %>
+    </p>
+    <% if version.event == 'update' or version.event == 'create' %>
+      <% changes = changes_for(version) %>
+      <table class='change_details_table'>
+        <% changes.keys.sort.each_with_index do |key, i| %>
+          <tr class='<%= i%2==0 ? 'even' : 'odd' %>'>
+            <td class='change_detail_key previous'><%= key %></td>
+            <td class='change_detail_value previous'><%= text_or_nil(changes[key][:previous]) %></td>
+            <td class='change_detail_spacer'> &rarr; </td>
+            <td class='change_detail_value current'><%= text_or_nil(changes[key][:current]) %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </td>
+</tr>
