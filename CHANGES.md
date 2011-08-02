@@ -2,7 +2,8 @@ Changes to `paper_trail_manager`
 ================================
 
 * 0.1.3
-    * Fix 
+    * Fix deprecation warnings for Rails Engines paths. [Nate Bird]
+    * Add homepage to included demo application that provides links and usage instructions.
 
 * 0.1.2
     * Switch template format from `haml` to `erb` to eliminate extra dependencies and improve compatibility. [Reid Beels]
