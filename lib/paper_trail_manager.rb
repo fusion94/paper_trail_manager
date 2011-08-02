@@ -22,8 +22,8 @@ class PaperTrailManager < Rails::Engine
   cattr_accessor :whodunnit_class, :whodunnit_name_method
 
   (Pathname(__FILE__).dirname + '..').tap do |base|
-    paths.app.controllers = base + 'app/controllers'
-    paths.app.views = base + 'app/views'
+    paths["app/controller"] = base + 'app/controllers'
+    paths["app/view"] = base + 'app/views'
   end
 
   def self._allow_set(action, block)
