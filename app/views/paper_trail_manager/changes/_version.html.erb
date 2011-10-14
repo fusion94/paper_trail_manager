@@ -1,4 +1,4 @@
-<tr class='change_row <%= "#{version.event}, #{version.item_type.downcase}" %>'>
+<tr class='change_row <%= "change_event_#{version.event} #{version.event} #{version.event}, #{version.item_type.downcase}" %>'>
   <td class='change_time'>
     <span class='change_id'>Change #<%= version.id %></span>
     <div class='date'> <%= version.created_at.strftime('%Y-%m-%d') %> </div>
