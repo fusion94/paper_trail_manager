@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{paper_trail_manager}
-  s.version = "0.1.3"
+  s.name = "paper_trail_manager"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Igal Koshevoy"]
-  s.date = %q{2011-08-02}
-  s.description = %q{A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications.}
-  s.email = %q{igal@pragmaticraft.com}
+  s.date = "2011-10-14"
+  s.description = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
+  s.email = "igal@pragmaticraft.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -82,6 +82,7 @@ Gem::Specification.new do |s|
     "spec/dummy/public/javascripts/effects.js",
     "spec/dummy/public/javascripts/prototype.js",
     "spec/dummy/public/javascripts/rails.js",
+    "spec/dummy/public/stylesheets/changes.css",
     "spec/dummy/script/rails",
     "spec/dummy/spec/controllers/entities_controller_spec.rb",
     "spec/dummy/spec/controllers/platforms_controller_spec.rb",
@@ -107,10 +108,10 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb",
     "spec/support/factories.rb"
   ]
-  s.homepage = %q{http://github.com/igal/paper_trail_manager}
+  s.homepage = "http://github.com/igal/paper_trail_manager"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications.}
+  s.rubygems_version = "1.8.11"
+  s.summary = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
   s.test_files = [
     "spec/controllers/paper_trail_manager/changes_controller_spec.rb",
     "spec/dummy/app/controllers/application_controller.rb",

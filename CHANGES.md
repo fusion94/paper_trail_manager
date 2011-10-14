@@ -1,6 +1,11 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.1.4
+    * Fix `changes_row` CSS, was `#{EVENT},` with a trailing comma. Kept it for backwards compatibility, and added `#{EVENT}` and `change_event_#{EVENT}` classes.
+    * Add sample CSS stylesheet: `spec/dummy/public/stylesheets/changes.css`.
+
+
 * 0.1.3
     * Fix deprecation warnings for Rails Engines paths. [Nate Bird]
     * Add homepage to included demo application that provides links and usage instructions.
