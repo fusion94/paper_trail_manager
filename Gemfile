@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem "rake"
 gem "rails", "~> 3.0"
 gem "paper_trail", "~> 2.0"
 gem "will_paginate", "~> 3.0.pre2"
