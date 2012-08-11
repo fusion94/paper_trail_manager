@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe PaperTrailManager do
-  include Capybara
-
   def version
     return assigns[:version]
   end
