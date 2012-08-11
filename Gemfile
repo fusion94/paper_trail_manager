@@ -11,7 +11,21 @@ group *[:development, :test] do
   gem "jeweler", "~> 1.8.4"
   gem "rdoc"
   gem "rspec-rails", "~> 2.5.0"
-  gem "ruby-debug"
   gem "spork", "~> 0.9.0.rc"
   gem "sqlite3-ruby", :require => "sqlite3"
+
+  # OPTIONAL LIBRARIES: These libraries upset travis-ci and may cause Ruby or
+  # RVM to hang, so only use them when needed.
+  if ENV['DEBUGGER']
+    platform :mri_18 do
+      gem 'rcov', :require => false
+      gem 'ruby-debug'
+    end
+
+    platform :mri_19 do
+      gem 'simplecov', :require => false
+      gem 'debugger-ruby_core_source'
+      gem 'debugger'
+    end
+  end
 end
