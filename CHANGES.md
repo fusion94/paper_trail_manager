@@ -1,6 +1,12 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.1.5
+    * Fix exceptions typically caused by bots submitting invalid pagination parameters. Now all pagination parameters are sanitized.
+    * Restrict use to Rails 3.0.x because newer versions are not compatible. Will try to add support for newer Rails releases later.
+    * Update test/development dependencies.
+    * Add travis-ci support.
+
 * 0.1.4
     * Fix `changes_row` CSS, was `#{EVENT},` with a trailing comma. Kept it for backwards compatibility, and added `#{EVENT}` and `change_event_#{EVENT}` classes.
     * Add sample CSS stylesheet: `spec/dummy/public/stylesheets/changes.css`.

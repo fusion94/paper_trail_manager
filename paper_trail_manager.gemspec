@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "paper_trail_manager"
-  s.version = "0.1.4"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Igal Koshevoy"]
-  s.date = "2011-10-14"
+  s.date = "2012-08-11"
   s.description = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
   s.email = "igal@pragmaticraft.com"
   s.extra_rdoc_files = [
@@ -112,97 +112,47 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.11"
   s.summary = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
-  s.test_files = [
-    "spec/controllers/paper_trail_manager/changes_controller_spec.rb",
-    "spec/dummy/app/controllers/application_controller.rb",
-    "spec/dummy/app/controllers/entities_controller.rb",
-    "spec/dummy/app/controllers/platforms_controller.rb",
-    "spec/dummy/app/helpers/application_helper.rb",
-    "spec/dummy/app/helpers/entities_helper.rb",
-    "spec/dummy/app/helpers/platforms_helper.rb",
-    "spec/dummy/app/models/entity.rb",
-    "spec/dummy/app/models/platform.rb",
-    "spec/dummy/config/application.rb",
-    "spec/dummy/config/boot.rb",
-    "spec/dummy/config/environment.rb",
-    "spec/dummy/config/environments/development.rb",
-    "spec/dummy/config/environments/production.rb",
-    "spec/dummy/config/environments/test.rb",
-    "spec/dummy/config/initializers/backtrace_silencers.rb",
-    "spec/dummy/config/initializers/inflections.rb",
-    "spec/dummy/config/initializers/mime_types.rb",
-    "spec/dummy/config/initializers/secret_token.rb",
-    "spec/dummy/config/initializers/session_store.rb",
-    "spec/dummy/config/routes.rb",
-    "spec/dummy/db/migrate/20110228091428_create_entities.rb",
-    "spec/dummy/db/migrate/20110228093241_create_platforms.rb",
-    "spec/dummy/db/migrate/20110228094444_create_versions.rb",
-    "spec/dummy/db/schema.rb",
-    "spec/dummy/spec/controllers/entities_controller_spec.rb",
-    "spec/dummy/spec/controllers/platforms_controller_spec.rb",
-    "spec/dummy/spec/helpers/entities_helper_spec.rb",
-    "spec/dummy/spec/helpers/platforms_helper_spec.rb",
-    "spec/dummy/spec/integration/navigation_spec.rb",
-    "spec/dummy/spec/integration/paper_trail_manager_spec.rb",
-    "spec/dummy/spec/models/entity_spec.rb",
-    "spec/dummy/spec/models/platform_spec.rb",
-    "spec/dummy/spec/requests/entities_spec.rb",
-    "spec/dummy/spec/requests/platforms_spec.rb",
-    "spec/dummy/spec/routing/entities_routing_spec.rb",
-    "spec/dummy/spec/routing/platforms_routing_spec.rb",
-    "spec/dummy/spec/views/entities/edit.html.erb_spec.rb",
-    "spec/dummy/spec/views/entities/index.html.erb_spec.rb",
-    "spec/dummy/spec/views/entities/new.html.erb_spec.rb",
-    "spec/dummy/spec/views/entities/show.html.erb_spec.rb",
-    "spec/dummy/spec/views/platforms/edit.html.erb_spec.rb",
-    "spec/dummy/spec/views/platforms/index.html.erb_spec.rb",
-    "spec/dummy/spec/views/platforms/new.html.erb_spec.rb",
-    "spec/dummy/spec/views/platforms/show.html.erb_spec.rb",
-    "spec/paper_trail_manager_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/support/factories.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, ["~> 3.0"])
+      s.add_runtime_dependency(%q<rake>, [">= 0"])
+      s.add_runtime_dependency(%q<rails>, ["~> 3.0.0"])
       s.add_runtime_dependency(%q<paper_trail>, ["~> 2.0"])
       s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
-      s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
-      s.add_development_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
-      s.add_development_dependency(%q<rspec-rails>, ["~> 2.5.0"])
-      s.add_development_dependency(%q<ruby-debug>, [">= 0"])
-      s.add_development_dependency(%q<spork>, ["~> 0.9.0.rc"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_development_dependency(%q<guard>, [">= 0"])
+      s.add_development_dependency(%q<guard-rspec>, [">= 0"])
+      s.add_development_dependency(%q<guard-spork>, [">= 0"])
+      s.add_development_dependency(%q<libnotify>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, ["~> 3.0"])
+      s.add_dependency(%q<rake>, [">= 0"])
+      s.add_dependency(%q<rails>, ["~> 3.0.0"])
       s.add_dependency(%q<paper_trail>, ["~> 2.0"])
       s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
-      s.add_dependency(%q<capybara>, [">= 0.4.0"])
-      s.add_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
-      s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
       s.add_dependency(%q<rdoc>, [">= 0"])
-      s.add_dependency(%q<rspec-rails>, ["~> 2.5.0"])
-      s.add_dependency(%q<ruby-debug>, [">= 0"])
-      s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
+      s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+      s.add_dependency(%q<guard>, [">= 0"])
+      s.add_dependency(%q<guard-rspec>, [">= 0"])
+      s.add_dependency(%q<guard-spork>, [">= 0"])
+      s.add_dependency(%q<libnotify>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, ["~> 3.0"])
+    s.add_dependency(%q<rake>, [">= 0"])
+    s.add_dependency(%q<rails>, ["~> 3.0.0"])
     s.add_dependency(%q<paper_trail>, ["~> 2.0"])
     s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
-    s.add_dependency(%q<capybara>, [">= 0.4.0"])
-    s.add_dependency(%q<factory_girl_rails>, ["~> 1.1.beta1"])
-    s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     s.add_dependency(%q<rdoc>, [">= 0"])
-    s.add_dependency(%q<rspec-rails>, ["~> 2.5.0"])
-    s.add_dependency(%q<ruby-debug>, [">= 0"])
-    s.add_dependency(%q<spork>, ["~> 0.9.0.rc"])
+    s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
+    s.add_dependency(%q<guard>, [">= 0"])
+    s.add_dependency(%q<guard-rspec>, [">= 0"])
+    s.add_dependency(%q<guard-spork>, [">= 0"])
+    s.add_dependency(%q<libnotify>, [">= 0"])
   end
 end
 
