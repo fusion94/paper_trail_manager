@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/igal/paper_trail_manager.png)](http://travis-ci.org/igal/paper_trail_manager)
+
 PaperTrailManager
 ================
 
