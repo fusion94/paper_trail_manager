@@ -8,7 +8,7 @@ gem "will_paginate", "~> 3.0.pre2"
 group *[:development, :test] do
   gem "capybara", ">= 0.4.0"
   gem "factory_girl_rails", "~> 1.1.beta1"
-  gem "jeweler", "~> 1.5.2"
+  gem "jeweler", "~> 1.8.4"
   gem "rdoc"
   gem "rspec-rails", "~> 2.5.0"
   gem "ruby-debug"
