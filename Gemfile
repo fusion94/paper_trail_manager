@@ -1,18 +1,14 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
 
-gem "rake"
-gem "rails", "~> 3.0.0"
-gem "paper_trail", "~> 2.0"
-gem "will_paginate", "~> 3.0.pre2"
+gem 'rake'
+gem 'rails', '~> 3.0.0'
+gem 'paper_trail', '~> 2.0'
+gem 'will_paginate', '~> 3.0.pre2'
 
-group *[:development, :test] do
-  gem "capybara", ">= 0.4.0"
-  gem "factory_girl_rails", "~> 1.1.beta1"
-  gem "jeweler", "~> 1.8.4"
-  gem "rdoc"
-  gem "rspec-rails", "~> 2.5.0"
-  gem "spork", "~> 0.9.0.rc"
-  gem "sqlite3-ruby", :require => "sqlite3"
+group :development do
+  gem 'rdoc'
+  gem 'jeweler', '~> 1.8.4'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
 
   # OPTIONAL LIBRARIES: These libraries upset travis-ci and may cause Ruby or
   # RVM to hang, so only use them when needed.
@@ -28,4 +24,11 @@ group *[:development, :test] do
       gem 'debugger'
     end
   end
+end
+
+group :test do
+  # gem 'capybara', '~> 1.1.2'
+  gem 'factory_girl_rails', '~> 1.7.0'
+  gem 'rspec-rails', '~> 2.11.0'
+  gem 'spork', '~> 0.9.2'
 end
