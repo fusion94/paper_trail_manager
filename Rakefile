@@ -1,4 +1,20 @@
 # encoding: UTF-8
+
+=begin
+RELEASE PROCESS
+---------------
+
+* Update VERSION file
+* % rm -f Gemfile.lock; bundle
+* % bundle exec rake gemspec build spec
+* % bundle exec rake install
+* Commit any changes
+* % git tag v`cat VERSION`
+* % git push --tags
+* % bundle exec rake release
+* % gem push $GEM
+=end
+
 require 'rubygems'
 begin
   require 'bundler/setup'
@@ -43,10 +59,4 @@ namespace :spork do
   task :serve do
     exec "spork"
   end
-end
-
-desc "Freshen files like Gemfile.lock and .gemspec"
-task :freshen do
-  sh "bundle check || bundle --local || bundle update --local || bundle update"
-  Rake::Task['gemspec'].invoke
 end
