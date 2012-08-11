@@ -1,6 +1,9 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.1.6
+    * Fix `Gemfile.lock` issue with 0.1.5.
+
 * 0.1.5
     * Fix exceptions typically caused by bots submitting invalid pagination parameters. Now all pagination parameters are sanitized.
     * Restrict use to Rails 3.0.x because newer versions are not compatible. Will try to add support for newer Rails releases later.
