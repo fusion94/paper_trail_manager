@@ -16,11 +16,6 @@ RELEASE PROCESS
 =end
 
 require 'rubygems'
-begin
-  require 'bundler/setup'
-rescue LoadError
-  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
-end
 
 require 'rake'
 require 'rdoc/task'
@@ -60,3 +55,6 @@ namespace :spork do
     exec "spork"
   end
 end
+
+# NOTE: Do not use 'bundler/setup' in this Rakefile, else the multi-Rails tester below will break because it will incorrectly use the Gemfile and environment of the paper_trail_manager gem, rather than the individual Gemfile for each Rails version being tested.
+load 'rails_test/Rakefile'
