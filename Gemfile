@@ -10,17 +10,6 @@ group :development do
   gem 'jeweler', '~> 1.8.4'
   gem 'sqlite3-ruby', :require => 'sqlite3'
 
-  # Guard and plugins
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-
-  # Guard notifier
-  case RUBY_PLATFORM
-  when /-*darwin.*/ then gem 'growl'
-  when /-*linux.*/ then gem 'libnotify'
-  end
-
   # OPTIONAL LIBRARIES: These libraries upset travis-ci and may cause Ruby or
   # RVM to hang, so only use them when needed.
   if ENV['DEBUGGER']
