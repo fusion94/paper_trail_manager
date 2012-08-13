@@ -23,9 +23,6 @@ require 'rdoc/task'
 require 'rspec/core'
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:spec)
-
-task :default => :spec
 
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
@@ -46,15 +43,4 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/igal/paper_trail_manager"
 end
 
-namespace :spork do
-  task :spec do
-    exec "rspec --drb spec"
-  end
-
-  task :serve do
-    exec "spork"
-  end
-end
-
-# NOTE: Do not use 'bundler/setup' in this Rakefile, else the multi-Rails tester below will break because it will incorrectly use the Gemfile and environment of the paper_trail_manager gem, rather than the individual Gemfile for each Rails version being tested.
 load 'rails_test/Rakefile'

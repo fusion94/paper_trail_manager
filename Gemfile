@@ -25,9 +25,3 @@ group :development do
     end
   end
 end
-
-group :test do
-  gem 'factory_girl_rails', '~> 1.7.0'
-  gem 'rspec-rails', '~> 2.11.0'
-  gem 'spork', '~> 0.9.2'
-end
