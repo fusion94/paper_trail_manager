@@ -5,13 +5,13 @@ RELEASE PROCESS
 ---------------
 
 * Update VERSION file
-* % rm -f Gemfile.lock; bundle
-* % bundle exec rake gemspec build spec
-* % bundle exec rake install
+* % rm -f Gemfile.lock; bundle --local
+* % rake gemspec build test
+* % rake install
 * Commit any changes
 * % git tag v`cat VERSION`
 * % git push --tags
-* % bundle exec rake release
+* % rake release
 * % gem push $GEM
 =end
 
@@ -20,9 +20,9 @@ require 'rubygems'
 require 'rake'
 require 'rdoc/task'
 
-require 'rspec/core'
-require 'rspec/core/rake_task'
-
+task :default => 'test:rails'
+task :spec => 'test:rails'
+task :test => 'test:rails'
 
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
@@ -36,7 +36,8 @@ require "jeweler"
 Jeweler::Tasks.new do |gem|
   gem.name = "paper_trail_manager"
   gem.summary = gem.description = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
-  gem.files = Dir["{app,lib,spec}/**/*"] + ["LICENSE.txt", "Rakefile", "README.md", "VERSION", "paper_trail_manager.gemspec", "Gemfile", "Gemfile.lock"] - Dir["spec/dummy/{log,tmp}/**/*"] - Dir["spec/dummy/db/*.sqlite3"]
+  gem.files = `git ls-files`.split("\n")
+  gem.test_files = `git ls-files -- {rails_test}/*`.split("\n")
 
   gem.authors = ["Igal Koshevoy"]
   gem.email = "igal@pragmaticraft.com"

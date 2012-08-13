@@ -1,7 +1,7 @@
 .bundle/
 log/*.log
 pkg/
-spec/dummy/db/*.sqlite3
-spec/dummy/log/*.log
-spec/dummy/tmp/
 *.gem
+rails_test/bundler_cache/
+rails_test/rails-*/Gemfile
+rails_test/rails-*/Gemfile.lock

@@ -1,0 +1,59 @@
+#! /usr/bin/env ruby
+
+unless ARGV[0]
+  puts "USAGE: #{File.basename($0)} <rails-version>"
+  puts
+  puts " e.g., '#{File.basename($0)} 3.2.8'"
+  puts
+  exit 1
+end
+
+version = ARGV[0]
+
+require "rubygems"
+
+Dir.chdir(File.dirname(__FILE__))
+
+def run(cmd)
+  puts "* running '#{cmd}'"
+  system cmd
+  raise "command failed" unless $? == 0
+end
+
+def rails version, dir
+  begin
+    gem "rails", "=#{version}"
+  rescue Gem::LoadError => e
+    puts "ERROR: could not find rails version #{version}"
+    puts "Try running:"
+    puts "  gem install rails --version=#{version}"
+    exit 1
+  end
+  puts "* successfully detected rails version #{version}"
+  if version >= "3"
+    run "yes | rails _#{version}_ new #{dir} > /dev/null"
+  else
+    run "yes | rails _#{version}_ #{dir} > /dev/null"
+  end
+end
+
+dir = "rails-#{version}"
+rails version, dir unless File.exists?(dir)
+
+# Copy common files
+run "rsync -a common/ #{dir}"
+
+# Rewrite routes to add paper_trail_manager
+body = <<-HERE
+  root :to => 'application#index'
+
+  resources :changes, :controller => 'paper_trail_manager/changes'
+  resources :entities
+  resources :platforms
+HERE
+file = "#{dir}/config/routes.rb"
+data = File.read(file)
+File.open(file, "w") do |handle|
+  data.sub!(/(\A[^\n]+\n)(.+)(\nend\s*\Z)/m, "\\1#{body}\\3")
+  handle.write(data)
+end
