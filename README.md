@@ -27,6 +27,29 @@ Restart the server and go to the `/changes` URI to browse, subscribe, view and r
 
     http://localhost:3000/changes
 
+Development
+-----------
+
+Setup:
+
+* Clone the repository
+* Go into the directory
+* Run `bundle` to install the development dependencies
+
+Running tests:
+
+* Run `rake` to run the tests. Note that the first time tests are run, gems will need to be downloaded for each individual version of Rails this app is tested against, which may take a while.
+
+Adding support for new Rails versions:
+
+* Run `./rails_test/generate_test_directory VERSION` where `VERSION` is the Rails version you want to add support for, e.g.: `./rails_test/generate_test_directory 3.2.8`
+* Run `rake test:rails-VERSION`, e.g. `rake test:rails-3.2.8` to install dependencies and run the tests.
+* Rerun the previous command to run tests for that specific version.
+* Edit the files in `rails_test/common` which will be copied into the individual Rails apps, e.g. the tests run against individual Rails versions are stored in `rails_test/common/spec`.
+* Edit the `./rails_test/generate_test_directory` file to modify files, e.g. setup routes.
+* Fix whatever breaks.
+* Please contribute your fixes with a Github pull request.
+
 License
 -------
 
