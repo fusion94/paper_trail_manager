@@ -1,6 +1,10 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.2.0
+    * Add support for Rails 3.1 and 3.2, while retaining support for Rails 3.0.
+    * Add test suite to check engine against multiple versions. This test suite is derived from Mike Dalessio's "loofah-activerecord" gem, available at https://github.com/flavorjones/loofah-activerecord
+
 * 0.1.6
     * Fix `Gemfile.lock` issue with 0.1.5.
 
