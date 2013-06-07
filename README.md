@@ -54,3 +54,8 @@ License
 -------
 
 This program is provided under an MIT open source license, read the [LICENSE.txt](http://github.com/igal/paper_trail_manager/blob/master/LICENSE.txt) file for details.
+
+To Note:
+--------
+
+This project was originally devloped by [Igal Koshevoy](http://github.com/igal). Unfortunately @igal passed away on April 9th, 2013 and I took over the project afterwords.
