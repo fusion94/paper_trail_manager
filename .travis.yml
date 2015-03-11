@@ -4,5 +4,6 @@ rvm:
   - 1.9.2
   - 1.9.3
   - ree
+install: bundle install --jobs=3 --retry=3
 script:
   - unset BUNDLE_GEMFILE && rake
