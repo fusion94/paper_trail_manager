@@ -1,6 +1,6 @@
 class PaperTrailManager::ChangesController < ApplicationController
   # Default number of changes to list on a pagenated index page.
-  #PER_PAGE = 50
+  PER_PAGE = 50
 
   # List changes
   def index
@@ -18,10 +18,10 @@ class PaperTrailManager::ChangesController < ApplicationController
     end
 
     # Ensure pagination parameters have sensible values
-    #@page = (v = params[:page].to_i; v == 0 ? nil : v)
-    #@per_page = (v = params[:per_page].to_i; v == 0 ? PER_PAGE : v)
+    @page = (v = params[:page].to_i; v == 0 ? nil : v)
+    @per_page = (v = params[:per_page].to_i; v == 0 ? PER_PAGE : v)
 
-   # @versions = @versions.paginate(:page => @page, :per_page => @per_page)
+    @versions = @versions.paginate(:page => @page, :per_page => @per_page)
 
     respond_to do |format|
       format.html # index.html.erb
