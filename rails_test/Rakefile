@@ -17,7 +17,7 @@ end
 def run(cmd)
   puts "* running: #{cmd}"
   system cmd
-  raise "ERROR running command" unless $? == 0
+  raise "ERROR running command: #{cmd}" unless $?.success?
 end
 
 def setup_rails_app dir
@@ -44,27 +44,8 @@ def setup_rails_app dir
 end
 
 def test_rails_app dir
-  @results ||= {}
   Dir.chdir(dir) do
-    ENV['RAILS_ENV'] = "test"
-    FileUtils.mkdir_p "log"
-    begin
-      run "touch db/test.sqlite3" # db:create doesn't exist before rails 2.0
-      run "bundle exec rake db:migrate --trace"
-      # run "bundle exec rspec --backtrace spec"
-      run "bundle exec rake"
-    rescue Object
-      @results[dir] = "FAIL"
-    else
-      @results[dir] = "SUCCESS"
-    end
-  end
-end
-
-def print_results
-  puts "----- RESULTS -----"
-  @results.keys.sort.each do |key|
-    puts "* #{key}: #{@results[key]}"
+    run "bundle exec rake db:create db:migrate default RAILS_ENV=test"
   end
 end
 
@@ -86,7 +67,5 @@ namespace :test do
       dir = File.basename fqdir
       Rake::Task["test:#{dir}"].invoke
     end
-    print_results
-    raise unless @results.values.all? { |value| value == "SUCCESS" }
   end
 end
