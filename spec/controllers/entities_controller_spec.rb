@@ -7,7 +7,7 @@ require 'spec_helper'
 describe EntitiesController do
 
   def mock_entity(stubs={})
-    @mock_entity ||= mock_model(Entity, stubs).as_null_object
+    @mock_entity ||= mock_model(Entity, stubs)
   end
 
   describe "GET index" do

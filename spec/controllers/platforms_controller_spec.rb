@@ -7,7 +7,7 @@ require 'spec_helper'
 describe PlatformsController do
 
   def mock_platform(stubs={})
-    @mock_platform ||= mock_model(Platform, stubs).as_null_object
+    @mock_platform ||= mock_model(Platform, stubs)
   end
 
   describe "GET index" do
