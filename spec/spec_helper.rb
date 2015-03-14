@@ -6,6 +6,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
+require "rspec/active_model/mocks"
+require "rspec/its"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -29,4 +31,6 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   config.use_transactional_fixtures = true
+
+  config.infer_spec_type_from_file_location!
 end
