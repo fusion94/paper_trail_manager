@@ -1,5 +1,6 @@
 require 'rails'
 require 'paper_trail'
+require 'will_paginate'
 
 # = PaperTrailManager
 #

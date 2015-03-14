@@ -24,5 +24,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "0.9.2.2"
   spec.add_development_dependency "rdoc"
   spec.add_development_dependency "sqlite3-ruby"
+  spec.add_development_dependency "factory_girl_rails", "~> 1.7.0"
+  spec.add_development_dependency "rspec-rails", "2.11.4"
+  spec.add_development_dependency "appraisal", "~> 1.0"
 end
 

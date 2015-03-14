@@ -1,6 +1,6 @@
 /.bundle/
 /.yardoc
-/Gemfile.lock
+Gemfile.lock
 /_yardoc/
 /coverage/
 /doc/
@@ -12,8 +12,4 @@
 *.o
 *.a
 mkmf.log
-
-rails_test/bundler_cache/
-rails_test/rails-*/Gemfile
-rails_test/rails-*/Gemfile.lock
-
+*.gemfile.lock
