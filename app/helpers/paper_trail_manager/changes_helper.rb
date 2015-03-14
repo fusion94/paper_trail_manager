@@ -9,7 +9,7 @@ class PaperTrailManager
       end
     end
 
-    # Return an hash of changes for the given +Version+ record. The resulting
+    # Return an hash of changes for the given +PaperTrail::Version+ record. The resulting
     # data structure is a hash whose keys are the names of changed columns and
     # values containing a hash with current and previous value. E.g.,:
     #
