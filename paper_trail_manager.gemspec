@@ -19,13 +19,14 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", "~> 3.0"
   spec.add_dependency "paper_trail", "~> 2.0"
-  spec.add_dependency "will_paginate", "~> 3.0.pre2"
+  spec.add_dependency "will_paginate", "~> 3.0"
 
-  spec.add_development_dependency "rake", "0.9.2.2"
-  spec.add_development_dependency "rdoc"
-  spec.add_development_dependency "sqlite3-ruby"
-  spec.add_development_dependency "factory_girl_rails", "~> 1.7.0"
-  spec.add_development_dependency "rspec-rails", "2.11.4"
+  spec.add_development_dependency "rake", "~> 10.4"
+  spec.add_development_dependency "sqlite3", "~> 1.3"
+  spec.add_development_dependency "factory_girl_rails", "~> 4.0"
+  spec.add_development_dependency "rspec-rails", "~> 3.0"
+  spec.add_development_dependency "rspec-activemodel-mocks", "~> 1.0"
+  spec.add_development_dependency "rspec-its", "~> 1.0"
   spec.add_development_dependency "appraisal", "~> 1.0"
 end
 

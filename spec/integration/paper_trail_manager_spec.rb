@@ -74,7 +74,7 @@ describe PaperTrailManager do
             let(:page) { 2 }
             let(:per_page) { 3 }
 
-            before(:all) { get changes_path(:page => page, :per_page => per_page) }
+            before { get changes_path(:page => page, :per_page => per_page) }
 
             it "should set :page parameter" do
               assigns[:page].should == page
@@ -191,11 +191,11 @@ describe PaperTrailManager do
 
       context "when authorized" do
         it "should rollback a newly-created record by deleting it" do
-          Entity.exists?(@reimu.id).should be_true
+          Entity.exists?(@reimu.id).should be_truthy
 
           put change_path(@reimu.versions.first)
 
-          Entity.exists?(@reimu.id).should be_false
+          Entity.exists?(@reimu.id).should be_falsey
         end
 
         it "should rollback an edit by reverting to the previous state" do
@@ -209,7 +209,7 @@ describe PaperTrailManager do
         end
 
         it "should rollback a delete by restoring the record" do
-          Entity.exists?(@flanchan.id).should be_false
+          Entity.exists?(@flanchan.id).should be_falsey
 
           put change_path(Version.where(:item_id => @flanchan.id, :item_type => "Entity").last)
 
