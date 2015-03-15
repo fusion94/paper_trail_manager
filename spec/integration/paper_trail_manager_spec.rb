@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PaperTrailManager do
+describe PaperTrailManager, :versioning => true do
   def version
     return assigns[:version]
   end
@@ -48,7 +48,7 @@ describe PaperTrailManager do
     after(:all) do
       Entity.destroy_all
       Platform.destroy_all
-      Version.destroy_all
+      PaperTrail::Version.destroy_all
     end
 
     context "index" do
@@ -211,7 +211,7 @@ describe PaperTrailManager do
         it "should rollback a delete by restoring the record" do
           Entity.exists?(@flanchan.id).should be_falsey
 
-          put change_path(Version.where(:item_id => @flanchan.id, :item_type => "Entity").last)
+          put change_path(PaperTrail::Version.where(:item_id => @flanchan.id, :item_type => "Entity").last)
 
           flanchan = Entity.find(@flanchan.id)
           flanchan.status.should == "The Embodiment of Scarlet Devil"
