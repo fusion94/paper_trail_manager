@@ -41,11 +41,11 @@ describe PaperTrailManager, :versioning => true do
   end
 
   context "with changes" do
-    before(:all) do
+    before do
       populate
     end
 
-    after(:all) do
+    after do
       Entity.destroy_all
       Platform.destroy_all
       PaperTrail::Version.destroy_all
@@ -55,7 +55,7 @@ describe PaperTrailManager, :versioning => true do
       context "when getting all changes" do
         context "and authorized" do
           context "and getting default index" do
-            before(:all) { get changes_path }
+            before { get changes_path }
 
             it "should have all changes" do
               versions.size.should == 10
@@ -90,7 +90,7 @@ describe PaperTrailManager, :versioning => true do
           end
 
           context "and getting invalid pagination" do
-            before(:all) { get changes_path(:page => "Shanghai", :per_page => "Alice") }
+            before { get changes_path(:page => "Shanghai", :per_page => "Alice") }
 
             it "should set default :page parameter" do
               assigns[:page].should be_nil
@@ -110,7 +110,7 @@ describe PaperTrailManager, :versioning => true do
 
       context "when getting changes for a specific type" do
         context "that exists" do
-          before(:all) { get changes_path(:type => "Entity") }
+          before { get changes_path(:type => "Entity") }
 
           it "should show a subset of the changes" do
             versions.size.should == 6
@@ -129,7 +129,7 @@ describe PaperTrailManager, :versioning => true do
 
       context "when getting changes for a specific record" do
         context "that exists" do
-          before(:all) { get changes_path(:type => "Entity", :id => @reimu.id) }
+          before { get changes_path(:type => "Entity", :id => @reimu.id) }
 
           it "should show a subset of the changes" do
             versions.size.should == 3
@@ -154,7 +154,7 @@ describe PaperTrailManager, :versioning => true do
     context "show a change" do
       context "that exists" do
         context "when authorized" do
-          before(:all) do
+          before do
             @version = @reimu.versions.last
             get change_path(@version)
           end
