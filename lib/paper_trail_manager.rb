@@ -20,7 +20,9 @@ require 'will_paginate'
 #
 class PaperTrailManager < Rails::Engine
   @@whodunnit_name_method = :name
-  cattr_accessor :whodunnit_class, :whodunnit_name_method
+  cattr_accessor :whodunnit_class, :whodunnit_name_method, :route_helpers, :layout, :base_controller
+
+  self.base_controller = "ApplicationController"
 
   (Pathname(__FILE__).dirname + '..').tap do |base|
     paths["app/controller"] = base + 'app/controllers'
