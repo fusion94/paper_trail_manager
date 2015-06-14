@@ -1,3 +1,4 @@
+# Allow the parent class of ChangesController to be configured in the host app
 PaperTrailManager::ChangesController = Class.new(PaperTrailManager.base_controller.constantize)
 
 class PaperTrailManager::ChangesController
