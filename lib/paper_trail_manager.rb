@@ -2,25 +2,11 @@ require 'rails'
 require 'paper_trail'
 require 'will_paginate'
 
-# = PaperTrailManager
-#
-# == Example usage
-#
-# To specify when reverts are allowed, write an initializer similar to this:
-#
-#   # config/initializers/paper_trail_manager.rb
-#   PaperTrailManager.allow_revert_when do |controller, version|
-#     controller.current_user and controller.current_user.admin?
-#   end
-#
-#   To specify how to look up users/memebers/etc specified in Paper Trail's 'whodunnit' column:
-#
-#   PaperTrailManager.whodunnit_class = User
-#   PaperTrailManager.whodunnit_name_method = :nicename   # defaults to :name
-#
 class PaperTrailManager < Rails::Engine
   @@whodunnit_name_method = :name
-  cattr_accessor :whodunnit_class, :whodunnit_name_method
+  cattr_accessor :whodunnit_class, :whodunnit_name_method, :route_helpers, :layout, :base_controller
+
+  self.base_controller = "ApplicationController"
 
   (Pathname(__FILE__).dirname + '..').tap do |base|
     paths["app/controller"] = base + 'app/controllers'

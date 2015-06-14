@@ -1,6 +1,13 @@
-class PaperTrailManager::ChangesController < ApplicationController
+# Allow the parent class of ChangesController to be configured in the host app
+PaperTrailManager::ChangesController = Class.new(PaperTrailManager.base_controller.constantize)
+
+class PaperTrailManager::ChangesController
   # Default number of changes to list on a pagenated index page.
   PER_PAGE = 50
+
+  helper PaperTrailManager.route_helpers if PaperTrailManager.route_helpers
+  helper PaperTrailManager::ChangesHelper
+  layout PaperTrailManager.layout if PaperTrailManager.layout
 
   # List changes
   def index
