@@ -1,6 +1,9 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.4.0
+    * Allow configuration of ChangesController's parent class, route helpers, and layout
+
 * 0.3.0
     * Support Rails 3.2, 4.0, 4.1, and 4.2
     * Drop support for Rails 3.0 and 3.1
