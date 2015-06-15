@@ -1,8 +1,23 @@
 require 'rails'
 require 'paper_trail'
-require 'will_paginate'
+
+begin
+  require 'will_paginate'
+rescue LoadError
+  begin
+    require 'kaminari'
+  rescue LoadError
+    raise LoadError.new('will_paginate or kaminari must be in Gemfile or load_path')
+  end
+end
 
 class PaperTrailManager < Rails::Engine
+  initializer "paper_trail_manager.pagination" do
+    if defined?(WillPaginate)
+      ::ActionView::Base.send(:alias_method, :paginate, :will_paginate)
+    end
+  end
+
   @@whodunnit_name_method = :name
   cattr_accessor :whodunnit_class, :whodunnit_name_method, :route_helpers, :layout, :base_controller
 

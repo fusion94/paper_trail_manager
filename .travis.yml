@@ -4,8 +4,12 @@ rvm:
   - 2.0
   - 2.1
 gemfile:
-  - gemfiles/rails_3.2.gemfile
-  - gemfiles/rails_4.0.gemfile
-  - gemfiles/rails_4.1.gemfile
-  - gemfiles/rails_4.2.gemfile
+  - gemfiles/rails_3.2_will_paginate.gemfile
+  - gemfiles/rails_4.0_will_paginate.gemfile
+  - gemfiles/rails_4.1_will_paginate.gemfile
+  - gemfiles/rails_4.2_will_paginate.gemfile
+  - gemfiles/rails_3.2_kaminari.gemfile
+  - gemfiles/rails_4.0_kaminari.gemfile
+  - gemfiles/rails_4.1_kaminari.gemfile
+  - gemfiles/rails_4.2_kaminari.gemfile
 cache: bundler

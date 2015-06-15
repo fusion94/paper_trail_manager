@@ -69,37 +69,6 @@ describe PaperTrailManager, :versioning => true do
               versions.map(&:id).should == versions.sort_by { |o| [o.created_at, o.id] }.reverse.map(&:id)
             end
           end
-
-          context "and getting paginated page" do
-            let(:page) { 2 }
-            let(:per_page) { 3 }
-
-            before { get changes_path(:page => page, :per_page => per_page) }
-
-            it "should set :page parameter" do
-              assigns[:page].should == page
-            end
-
-            it "should set :per_page parameter" do
-              assigns[:per_page].should == per_page
-            end
-
-            it "should retrieve only items for page" do
-              versions.size.should == per_page
-            end
-          end
-
-          context "and getting invalid pagination" do
-            before { get changes_path(:page => "Shanghai", :per_page => "Alice") }
-
-            it "should set default :page parameter" do
-              assigns[:page].should be_nil
-            end
-
-            it "should set default :per_page parameter" do
-              assigns[:per_page].should == PaperTrailManager::ChangesController::PER_PAGE
-            end
-          end
         end
 
         # TODO
