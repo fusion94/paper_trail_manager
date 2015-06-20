@@ -28,7 +28,11 @@ class PaperTrailManager::ChangesController
     @page = (v = params[:page].to_i; v == 0 ? nil : v)
     @per_page = (v = params[:per_page].to_i; v == 0 ? PER_PAGE : v)
 
-    @versions = @versions.paginate(:page => @page, :per_page => @per_page)
+    if defined?(WillPaginate)
+      @versions = @versions.paginate(:page => @page, :per_page => @per_page)
+    else
+      @versions = @versions.page(@page).per(@per_page)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

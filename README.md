@@ -13,6 +13,11 @@ If you have a Ruby on Rails 3 or 4 application where you're using the `paper_tra
 Add the following line to your `Gemfile`:
     gem 'paper_trail_manager'
 
+PaperTrailManager will use your existing paging library (WillPaginate or Kaminari).  If you don't currently use one in your app, add one of the following lines to your `Gemfile`:
+    gem 'kaminari'
+    #or
+    gem 'will_paginate'
+
 Install the libary:
 
     bundle install
@@ -63,15 +68,24 @@ Setup:
 
 Running tests:
 
-* Run `rake` to run the tests. Note that the first time tests are run, gems will need to be downloaded for each individual version of Rails this app is tested against, which may take a while.
+* Run `appraisal rake` to run the tests against all supported gem combinations. Note that the first time tests are run, gems will need to be downloaded for each individual version of Rails this app is tested against, which may take a while.
 
 Adding support for new Rails versions:
 
-* Run `./rails_test/generate_test_directory VERSION` where `VERSION` is the Rails version you want to add support for, e.g.: `./rails_test/generate_test_directory 3.2.8`
-* Run `rake test:rails-VERSION`, e.g. `rake test:rails-3.2.8` to install dependencies and run the tests.
-* Rerun the previous command to run tests for that specific version.
-* Edit the files in `rails_test/common` which will be copied into the individual Rails apps, e.g. the tests run against individual Rails versions are stored in `rails_test/common/spec`.
-* Edit the `./rails_test/generate_test_directory` file to modify files, e.g. setup routes.
+* This repo uses the [Appraisal](https://github.com/thoughtbot/appraisal) gem, to add a new rails version modify the Appraisals file
+  - Add both a 'will_paginate' and a 'kaminari' version like so:
+  ```
+  appraise "rails-5.0-will-paginate" do
+    gem "rails", "5.0.0"
+    gem "will_paginate", "~> 3.0"
+  end
+  appraise "rails-5.0-will-kaminari" do
+    gem "rails", "5.0.0"
+    gem "kaminari", "~> 0.16"
+  end
+  ```
+* Run `appraisal generate`
+* Run `appraisal install`
 * Fix whatever breaks.
 * Please contribute your fixes with a Github pull request.
 

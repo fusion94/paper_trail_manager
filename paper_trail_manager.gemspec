@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails", [">= 3.0", "< 5.0"]
   spec.add_dependency "paper_trail", "~> 3.0"
-  spec.add_dependency "will_paginate", "~> 3.0"
 
   spec.add_development_dependency "rake", "~> 10.4"
   spec.add_development_dependency "sqlite3", "~> 1.3"
