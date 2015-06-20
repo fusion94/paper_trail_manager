@@ -63,12 +63,12 @@ class PaperTrailManager::ChangesController
       @version = PaperTrail::Version.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "No such version."
-      return(redirect_to(:action => :index))
+      return(redirect_to(changes_path))
     end
 
     unless change_revert_allowed?(@version)
       flash[:error] = "You do not have permission to revert this change."
-      return(redirect_to :action => :index)
+      return(redirect_to changes_path)
     end
 
     if @version.event == "create"
@@ -82,14 +82,14 @@ class PaperTrailManager::ChangesController
     if @result
       if @version.event == "create"
         flash[:notice] = "Rolled back newly-created record by destroying it."
-        redirect_to :action => :index
+        redirect_to changes_path
       else
         flash[:notice] = "Rolled back changes to this record."
         redirect_to change_item_url(@version)
       end
     else
       flash[:error] = "Couldn't rollback. Sorry."
-      redirect_to :action => :index
+      redirect_to changes_path
     end
   end
 
@@ -97,7 +97,8 @@ protected
 
   # Return the URL for the item represented by the +version+, e.g. a Company record instance referenced by a version.
   def change_item_url(version)
-    return send("#{version.item_type.downcase}_url", version.item_id)
+    version_type = version.item_type.underscore.split('/').last
+    return send("#{version_type}_url", version.item_id)
   rescue NoMethodError
     return nil
   end
