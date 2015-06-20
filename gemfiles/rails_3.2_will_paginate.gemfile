@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails", "3.2.21"
+gem "rails", "~> 3.2.21"
 gem "will_paginate", "~> 3.0"
 
 gemspec :path => "../"

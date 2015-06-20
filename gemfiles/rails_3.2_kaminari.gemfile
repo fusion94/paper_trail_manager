@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails", "3.2.21"
+gem "rails", "~> 3.2.21"
 gem "kaminari", "~> 0.16"
 
 gemspec :path => "../"
