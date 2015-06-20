@@ -11,9 +11,11 @@ This software has been in use for a year at http://calagator.org and http://epdx
 If you have a Ruby on Rails 3 or 4 application where you're using the `paper_trail` gem to track changes to your records, you can make use of this like:
 
 Add the following line to your `Gemfile`:
+
     gem 'paper_trail_manager'
 
-PaperTrailManager will use your existing paging library (WillPaginate or Kaminari).  If you don't currently use one in your app, add one of the following lines to your `Gemfile`:
+PaperTrailManager will use your existing paging library ([will_paginate](https://github.com/mislav/will_paginate) or [Kaminari](https://github.com/amatsuda/kaminari)).  If you don't currently use one in your app, add one of the following lines to your `Gemfile`:
+
     gem 'kaminari'
     #or
     gem 'will_paginate'
