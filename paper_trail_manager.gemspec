@@ -2,9 +2,12 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
+# Maintain your gem's version:
+require "paper_trail_manager/version"
+
 Gem::Specification.new do |spec|
   spec.name          = "paper_trail_manager"
-  spec.version       = "0.4.0"
+  spec.version       = PaperTrailManager::VERSION
   spec.authors       = ["Igal Koshevoy", "Reid Beels"]
   spec.authors       = ["mail@reidbeels.com"]
   spec.summary       = "A user interface for `paper_trail` versioning data in Ruby on Rails 3 applications."
