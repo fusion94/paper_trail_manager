@@ -49,6 +49,11 @@ To specify how to look up users/memebers/etc specified in Paper Trail's 'whodunn
     PaperTrailManager.whodunnit_class = User
     PaperTrailManager.whodunnit_name_method = :nicename   # defaults to :name
 
+And for linking (or not) to the user with a custom path helper:
+
+    PaperTrailManager.user_path_method = :admin_path # defaults to :user_path
+    PaperTrailManager.user_path_method = nil # no "show user" page in app
+
 When including PaperTrailManager within another Rails engine, you may need to
 override PaperTrailManager::ChangesController's parent class to reference the
 engine's ApplicationController configure it to use your engine's url helpers:

@@ -12,7 +12,13 @@
       <%= change_item_link(version) %>
       <% if PaperTrailManager.whodunnit_class && version.whodunnit %>
         <% if user = PaperTrailManager.whodunnit_class.find(version.whodunnit) rescue nil %>
-          by <%= link_to(h(user.send(PaperTrailManager.whodunnit_name_method)), user_path(user)) %>
+          <% if PaperTrailManager.user_path_method && user %>
+            by <%= link_to(h(user.send(PaperTrailManager.whodunnit_name_method)), send(:user_path_method, user)) %>
+          <% else %>
+            by <%= h(user.send(PaperTrailManager.whodunnit_name_method)) %>
+          <% end %>
+        <% else %>
+          by <%= version.whodunnit %>
         <% end %>
       <% end %>
       <% if change_revert_allowed?(version) %>
