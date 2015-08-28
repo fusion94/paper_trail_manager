@@ -32,8 +32,9 @@ class PaperTrailManager
           changes.store(attr, {previous: prev, current: curr}) && changes
         end
       when "destroy"
-        return {} unless version.reify
-        version.reify.attributes.reject{|k,v| v.nil?}.inject({}) do |changes, (attr, value)|
+        record = version_reify(version)
+        return {} unless record
+        record.attributes.reject{|k,v| v.nil?}.inject({}) do |changes, (attr, value)|
           changes.store(attr, {previous: value, current: nil}) && changes
         end
       else
@@ -71,6 +72,12 @@ class PaperTrailManager
       else
         return content_tag(:span, change_title_for(version), :class => 'change_item')
       end
+    end
+
+    def version_reify(version)
+      version.reify
+    rescue ArgumentError
+      nil
     end
   end
 end
