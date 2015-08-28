@@ -25,6 +25,7 @@ class PaperTrailManager
     #     ...
     #   }
     def changes_for(version)
+      return {} unless version.changeset
       case version.event
       when "create", "update"
         version.changeset.inject({}) do |changes, (attr, (prev, curr))|
