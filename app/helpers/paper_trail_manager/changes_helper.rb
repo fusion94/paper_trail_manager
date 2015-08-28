@@ -25,16 +25,16 @@ class PaperTrailManager
     #     ...
     #   }
     def changes_for(version)
-      return {} unless version.changeset.present?
-
       case version.event
       when "create", "update"
+        return {} unless version.changeset
         version.changeset.inject({}) do |changes, (attr, (prev, curr))|
           changes.store(attr, {previous: prev, current: curr}) && changes
         end
       when "destroy"
-        version.changeset.inject({}) do |changes, (attr, (curr, prev))|
-          changes.store(attr, {previous: prev, current: curr}) && changes
+        return {} unless version.reify
+        version.reify.attributes.reject{|k,v| v.nil?}.inject({}) do |changes, (attr, value)|
+          changes.store(attr, {previous: value, current: nil}) && changes
         end
       else
         raise ArgumentError, "Unknown event: #{version.event}"
