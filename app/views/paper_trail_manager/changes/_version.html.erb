@@ -7,8 +7,6 @@
   <td class='change_details'>
     <p class='change_details_description'>
       <strong class='event'><%= version.event %></strong>
-      <span class='item_type'><%= version.item_type %></span>
-      <span class='item_id'><%= version.item_id %></span>
       <%= change_item_link(version) %>
       <% if PaperTrailManager.whodunnit_class && version.whodunnit %>
         <% if user = PaperTrailManager.whodunnit_class.find(version.whodunnit) rescue nil %>
