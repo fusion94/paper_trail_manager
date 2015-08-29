@@ -25,43 +25,21 @@ class PaperTrailManager
     #     ...
     #   }
     def changes_for(version)
-      changes = {}
-      current = version.next.try(:reify)
-      # FIXME #reify randomly throws "ArgumentError Exception: syntax error on line 13, col 30:" -- why?
-      previous = version.reify rescue nil
-      record = \
-        begin
-          version.item_type.constantize.find(version.item_id)
-        rescue ActiveRecord::RecordNotFound
-          previous || current
-        end
-
-      # Bail out if no changes are available
-      return changes unless record
-
       case version.event
       when "create", "update"
-        current ||= record
+        return {} unless version.changeset
+        version.changeset.inject({}) do |changes, (attr, (prev, curr))|
+          changes.store(attr, {previous: prev, current: curr}) && changes
+        end
       when "destroy"
-        previous ||= record
+        record = version_reify(version)
+        return {} unless record
+        record.attributes.reject{|k,v| v.nil?}.inject({}) do |changes, (attr, value)|
+          changes.store(attr, {previous: value, current: nil}) && changes
+        end
       else
         raise ArgumentError, "Unknown event: #{version.event}"
       end
-
-      (current or previous).attribute_names.each do |name|
-        next if name == "updated_at"
-        next if name == "created_at"
-        current_value = current.read_attribute(name) if current
-        previous_value = previous.read_attribute(name) if previous
-        unless current_value == previous_value || (version.event == "create" && current_value.blank?)
-          changes[name] = {
-            :previous => previous_value,
-            :current => current_value,
-          }
-        end
-      end
-
-      return changes
     end
 
     # Returns string title for the versioned record.
@@ -94,6 +72,12 @@ class PaperTrailManager
       else
         return content_tag(:span, change_title_for(version), :class => 'change_item')
       end
+    end
+
+    def version_reify(version)
+      version.reify
+    rescue ArgumentError
+      nil
     end
   end
 end
