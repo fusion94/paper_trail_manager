@@ -19,7 +19,8 @@ class PaperTrailManager < Rails::Engine
   end
 
   @@whodunnit_name_method = :name
-  cattr_accessor :whodunnit_class, :whodunnit_name_method, :route_helpers, :layout, :base_controller, :user_path_method
+  cattr_accessor :whodunnit_class, :whodunnit_name_method, :route_helpers,
+    :layout, :base_controller, :user_path_method
 
   self.base_controller = "ApplicationController"
   self.user_path_method = :user_path
@@ -29,45 +30,38 @@ class PaperTrailManager < Rails::Engine
     paths["app/view"] = base + 'app/views'
   end
 
-  def self._allow_set(action, block)
-    send(:class_variable_set, "@@allow_#{action}_block", block)
-  end
+  cattr_accessor :allow_index_block, :allow_show_block, :allow_revert_block
 
-  def self._allow_check(action, *args)
-    begin
-      block = send(:class_variable_get, "@@allow_#{action}_block")
-    rescue NameError => e
-      return true
-    end
-
-    return block.call(*args)
-  end
+  block = Proc.new { true }
+  self.allow_index_block = block
+  self.allow_show_block = block
+  self.allow_revert_block = block
 
   def self.allow_index_when(&block)
-    _allow_set(:index, block)
+    self.allow_index_block = block
   end
 
   def self.allow_index?(controller)
-    _allow_check(:index, controller)
+    allow_index_block.call controller
   end
 
   def self.allow_show_when(&block)
-    _allow_set(:show, block)
+    self.allow_show_block = block
   end
 
   def self.allow_show?(controller, version)
-    _allow_check(:index, controller, version)
+    allow_index_block.call controller, version
   end
 
   # Describe when to allow reverts. Call this with a block that accepts
   # arguments for +controller+ and +version+.
   def self.allow_revert_when(&block)
-    _allow_set(:revert, block)
+    self.allow_revert_block = block
   end
 
   # Allow revert given the +controller+ and +version+? If no
   # ::allow_revert_when was specified, always return +true+.
   def self.allow_revert?(controller, version)
-    _allow_check(:revert, controller, version)
+    allow_revert_block.call controller, version
   end
 end
