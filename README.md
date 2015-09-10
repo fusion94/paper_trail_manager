@@ -35,7 +35,7 @@ Restart the server and go to the `/changes` URI to browse, subscribe, view and r
 ### Configuration
 
 Several aspects of PaperTrailManager may be optionally configured
-by creating an initializer in your application 
+by creating an initializer in your application
 (e.g. `config/initializers/paper_trail_manager.rb`).
 
 To specify when reverts are allowed:
@@ -48,6 +48,10 @@ To specify how to look up users/memebers/etc specified in Paper Trail's 'whodunn
 
     PaperTrailManager.whodunnit_class = User
     PaperTrailManager.whodunnit_name_method = :nicename   # defaults to :name
+
+To specify a method to call to identify an item on an index page:
+
+    PaperTrailManager.item_name_method = :nicename
 
 And for linking (or not) to the user with a custom path helper:
 
