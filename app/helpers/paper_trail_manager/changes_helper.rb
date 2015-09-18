@@ -44,17 +44,11 @@ class PaperTrailManager
 
     # Returns string title for the versioned record.
     def change_title_for(version)
-      current = version.next.try(:reify)
-      previous = version.reify rescue nil
-      record = version.item_type.constantize.find(version.item_id) rescue nil
-
-      name = nil
-      [:name, :title, :to_s].each do |name_method|
-        [previous, current, record].each do |obj|
-          name = obj.send(name_method) if obj.respond_to?(name_method)
-          break if name
-        end
-        break if name
+      if PaperTrailManager.item_name_method
+        record = version_reify(version) || version.next.try(:reify) || version.item
+        name = record.send(PaperTrailManager.item_name_method)
+      else
+        name = "#{version.item_type} #{version.item_id}"
       end
 
       return h(name)
