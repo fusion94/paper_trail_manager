@@ -1,10 +1,16 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.6.0
+    * Add support for linking changes to user records via `PaperTrailManager.whodunnit_name_method` and `PaperTrailManager.user_path_method`
+    * Add new `PaperTrailManager.item_name_method` configuration option
+    * Add support for paper_trail 4.x
+    * Refactoring, code simplification, and performance improvements
+
 * 0.5.0
-    * Added support for pagination with [Kaminari](https://github.com/amatsuda/kaminari) in addition to [will_paginate](https://github.com/mislav/will_paginate).
+    * Add support for pagination with [Kaminari](https://github.com/amatsuda/kaminari) in addition to [will_paginate](https://github.com/mislav/will_paginate).
     * **[!]** Removed direct dependency on will_paginate. You must now include either `will_paginate` or `kaminari` in your Gemfile.
-    * Fixed a bug with route generation when paper_trail_manager is used within another Rails engine.
+    * Fix a bug with route generation when paper_trail_manager is used within another Rails engine.
 
 * 0.4.0
     * Allow configuration of ChangesController's parent class, route helpers, and layout
