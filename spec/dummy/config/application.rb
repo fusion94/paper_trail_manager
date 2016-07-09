@@ -11,7 +11,6 @@ require "action_cable/engine"
 require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
-require "herpderp"
 
 module Dummy
   class Application < Rails::Application
