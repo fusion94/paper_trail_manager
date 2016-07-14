@@ -1,23 +1,8 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.0
-  - 2.1
+  - 2.3.1
 gemfile:
-  - gemfiles/rails_3.2.0_paper_trail_3.0_kaminari.gemfile
-  - gemfiles/rails_3.2.0_paper_trail_3.0_will_paginate.gemfile
-  - gemfiles/rails_3.2.0_paper_trail_4.0_kaminari.gemfile
-  - gemfiles/rails_3.2.0_paper_trail_4.0_will_paginate.gemfile
-  - gemfiles/rails_4.0.0_paper_trail_3.0_kaminari.gemfile
-  - gemfiles/rails_4.0.0_paper_trail_3.0_will_paginate.gemfile
-  - gemfiles/rails_4.0.0_paper_trail_4.0_kaminari.gemfile
-  - gemfiles/rails_4.0.0_paper_trail_4.0_will_paginate.gemfile
-  - gemfiles/rails_4.1.0_paper_trail_3.0_kaminari.gemfile
-  - gemfiles/rails_4.1.0_paper_trail_3.0_will_paginate.gemfile
-  - gemfiles/rails_4.1.0_paper_trail_4.0_kaminari.gemfile
-  - gemfiles/rails_4.1.0_paper_trail_4.0_will_paginate.gemfile
-  - gemfiles/rails_4.2.2_paper_trail_3.0_kaminari.gemfile
-  - gemfiles/rails_4.2.2_paper_trail_3.0_will_paginate.gemfile
-  - gemfiles/rails_4.2.2_paper_trail_4.0_kaminari.gemfile
-  - gemfiles/rails_4.2.2_paper_trail_4.0_will_paginate.gemfile
+  - gemfiles/rails_5.0_paper_trail_5.0_kaminari.gemfile
+  - gemfiles/rails_5.0_paper_trail_5.0_will_paginate.gemfile
 cache: bundler
