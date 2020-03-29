@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - 'master'
-      - 'broaden-testing'
 
 jobs:
   test:
@@ -21,6 +20,7 @@ jobs:
       matrix:
         ruby:
           - 2.5.7
+          - 2.6.5
         gemfile:
           - gemfiles/rails_4.2.2_paper_trail_5.0_kaminari.gemfile
           - gemfiles/rails_4.2.2_paper_trail_5.0_will_paginate.gemfile
