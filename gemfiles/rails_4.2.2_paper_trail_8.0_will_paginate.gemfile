@@ -6,6 +6,5 @@ gem "rails", "~> 4.2.2"
 gem "jquery-rails"
 gem "paper_trail", "~> 8.0"
 gem "will_paginate", "~> 3.0"
-gem "rails-controller-testing"
 
 gemspec :path => "../"

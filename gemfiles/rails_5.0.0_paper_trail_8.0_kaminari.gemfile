@@ -6,6 +6,5 @@ gem "rails", "~> 5.0.0"
 gem "jquery-rails"
 gem "paper_trail", "~> 8.0"
 gem "kaminari", ">= 0.16"
-gem "rails-controller-testing"
 
 gemspec :path => "../"
