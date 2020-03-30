@@ -166,21 +166,21 @@ describe PaperTrailManager, versioning: true do
 
       context 'when authorized' do
         it 'rollbacks a newly-created record by deleting it' do
-          Entity.exists?(@reimu.id).should be_truthy
+          expect(Entity).to exist(@reimu.id)
 
           put change_path(@reimu.versions.first)
 
-          Entity.exists?(@reimu.id).should be_falsey
+          expect(Entity).not_to exist(@reimu.id)
         end
 
         it 'rollbacks an edit by reverting to the previous state' do
           @reimu.reload
-          @reimu.status.should == 'Perfect Cherry Blossom'
+          expect(@reimu.status).to eq 'Perfect Cherry Blossom'
 
           put change_path(@reimu.versions.last)
 
           @reimu.reload
-          @reimu.status.should == 'Phantasmagoria of Dimensional Dream'
+          expect(@reimu.status).to eq 'Phantasmagoria of Dimensional Dream'
         end
 
         it 'rollbacks a delete by restoring the record' do
@@ -189,7 +189,7 @@ describe PaperTrailManager, versioning: true do
           put change_path(PaperTrail::Version.where(item_id: @flanchan.id, item_type: 'Entity').last)
 
           flanchan = Entity.find(@flanchan.id)
-          flanchan.status.should == 'The Embodiment of Scarlet Devil'
+          expect(flanchan.status).to eq 'The Embodiment of Scarlet Devil'
         end
       end
 

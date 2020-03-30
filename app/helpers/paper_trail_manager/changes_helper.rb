@@ -66,7 +66,7 @@ class PaperTrailManager
 
     # Returns HTML link for the item stored in the version, e.g. a link to a Company record stored in the version.
     def change_item_link(version)
-      if url = change_item_url(version)
+      if (url = change_item_url(version))
         link_to(change_title_for(version), url, class: 'change_item')
       else
         content_tag(:span, change_title_for(version), class: 'change_item')
