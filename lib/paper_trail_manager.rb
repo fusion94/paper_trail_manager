@@ -15,9 +15,7 @@ end
 
 class PaperTrailManager < Rails::Engine
   initializer 'paper_trail_manager.pagination' do
-    if defined?(WillPaginate)
-      ::ActionView::Base.send(:alias_method, :paginate, :will_paginate)
-    end
+    ::ActionView::Base.send(:alias_method, :paginate, :will_paginate) if defined?(WillPaginate)
   end
 
   @@whodunnit_name_method = :name

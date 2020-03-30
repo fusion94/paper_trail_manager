@@ -3,37 +3,8 @@
 require 'spec_helper'
 
 describe PaperTrailManager, versioning: true do
-  def version
-    assigns[:version]
-  end
-
-  def versions
-    assigns[:versions]
-  end
-
-  def item_types
-    versions.map(&:item_type).uniq.sort
-  end
-
-  def populate
-    @reimu = FactoryGirl.create(:entity, name: 'Miko Hakurei Reimu', status: 'Highly Responsive to Prayers')
-    @reimu.update(name: 'Hakurei Reimu', status: 'Phantasmagoria of Dimensional Dream')
-    @reimu.update(status: 'Perfect Cherry Blossom')
-
-    @sakuya = FactoryGirl.create(:entity, name: 'Sakuya Izayoi', status: 'Flowering Night')
-
-    @flanchan = FactoryGirl.create(:entity, name: 'Flandre Scarlet', status: 'The Embodiment of Scarlet Devil')
-    @flanchan.destroy
-
-    @kyuu_hachi = FactoryGirl.create(:platform, name: 'PC-9801', status: 'SUGOI!!1!')
-    @kyuu_hachi.update(status: 'Kimochi warui.')
-    @kyuu_hachi.destroy
-
-    @uinodouzu = FactoryGirl.create(:platform, name: 'Mikorusofto Uinodouzu', status: 'o-O')
-  end
-
   context 'without changes' do
-    context 'index' do
+    context 'when fetching the index' do
       it 'has no changes by default' do
         get '/changes'
 
@@ -43,20 +14,28 @@ describe PaperTrailManager, versioning: true do
   end
 
   context 'with changes' do
+    let(:reimu) { FactoryGirl.create(:entity, name: 'Miko Hakurei Reimu', status: 'Highly Responsive to Prayers') }
+    let(:flanchan) { FactoryGirl.create(:entity, name: 'Flandre Scarlet', status: 'The Embodiment of Scarlet Devil') }
+    let(:sakuya) { FactoryGirl.create(:entity, name: 'Sakuya Izayoi', status: 'Flowering Night') }
+    let(:kyuu_hachi) { FactoryGirl.create(:platform, name: 'PC-9801', status: 'SUGOI!!1!') }
+    let!(:uinodouzu) { FactoryGirl.create(:platform, name: 'Mikorusofto Uinodouzu', status: 'o-O') }
+
+    let!(:flanchan_id) { flanchan.id }
+
     before do
-      populate
+      sakuya
+      reimu.update(name: 'Hakurei Reimu', status: 'Phantasmagoria of Dimensional Dream')
+      reimu.update(status: 'Perfect Cherry Blossom')
+      flanchan.destroy
+      kyuu_hachi.update(status: 'Kimochi warui.')
+      kyuu_hachi.destroy
+      uinodouzu
     end
 
-    after do
-      Entity.destroy_all
-      Platform.destroy_all
-      PaperTrail::Version.destroy_all
-    end
-
-    context 'index' do
+    describe 'index' do
       context 'when getting all changes' do
-        context 'and authorized' do
-          context 'and getting default index' do
+        context 'with authorization' do
+          context 'when getting default index' do
             before { get changes_path }
 
             it 'has all changes' do
@@ -82,7 +61,7 @@ describe PaperTrailManager, versioning: true do
       end
 
       context 'when getting changes for a specific type' do
-        context 'that exists' do
+        context 'when changes exist' do
           before { get changes_path(type: 'Entity') }
 
           it 'shows a subset of the changes' do
@@ -102,8 +81,8 @@ describe PaperTrailManager, versioning: true do
       end
 
       context 'when getting changes for a specific record' do
-        context 'that exists' do
-          before { get changes_path(type: 'Entity', id: @reimu.id) }
+        context 'when changes exist' do
+          before { get changes_path(type: 'Entity', id: reimu.id) }
 
           it 'shows a subset of the changes' do
             expect(response.body).to have_tag('.change_row', count: 3)
@@ -115,7 +94,7 @@ describe PaperTrailManager, versioning: true do
           end
 
           it 'has changes only for that record' do
-            expect(response.body.scan(%r{/entities/(#{@reimu.id})}).flatten.uniq).to eq [@reimu.id.to_s]
+            expect(response.body.scan(%r{/entities/(#{reimu.id})}).flatten.uniq).to eq [reimu.id.to_s]
           end
         end
 
@@ -126,16 +105,17 @@ describe PaperTrailManager, versioning: true do
       end
     end
 
-    context 'show a change' do
-      context 'that exists' do
+    describe 'showing a change' do
+      context 'when the change exists' do
         context 'when authorized' do
+          let(:version) { reimu.versions.last }
+
           before do
-            @version = @reimu.versions.last
-            get change_path(@version)
+            get change_path(version)
           end
 
           it 'shows the requested change' do
-            expect(response.body).to have_tag('.change_id', text: "Change ##{@version.id}")
+            expect(response.body).to have_tag('.change_id', text: "Change ##{version.id}")
           end
 
           it 'shows a change with the right event' do
@@ -143,7 +123,7 @@ describe PaperTrailManager, versioning: true do
           end
 
           it 'is associated with the expected record' do
-            expect(response.body).to have_tag('.change_item', text: "Entity #{@reimu.id}")
+            expect(response.body).to have_tag('.change_item', text: "Entity #{reimu.id}")
           end
         end
 
@@ -158,50 +138,48 @@ describe PaperTrailManager, versioning: true do
       #   it "should display an error that the change doesn't exist"
       # end
     end
-  end
 
-  context 'when rolling back changes' do
-    context 'that that exist' do
-      before { populate }
+    describe 'rolling back changes' do
+      context 'when changes exist' do
+        context 'when authorized' do
+          it 'rollbacks a newly-created record by deleting it' do
+            expect(Entity).to exist(reimu.id)
 
-      context 'when authorized' do
-        it 'rollbacks a newly-created record by deleting it' do
-          expect(Entity).to exist(@reimu.id)
+            put change_path(reimu.versions.first)
 
-          put change_path(@reimu.versions.first)
+            expect(Entity).not_to exist(reimu.id)
+          end
 
-          expect(Entity).not_to exist(@reimu.id)
+          it 'rollbacks an edit by reverting to the previous state' do
+            reimu.reload
+            expect(reimu.status).to eq 'Perfect Cherry Blossom'
+
+            put change_path(reimu.versions.last)
+
+            reimu.reload
+            expect(reimu.status).to eq 'Phantasmagoria of Dimensional Dream'
+          end
+
+          it 'rollbacks a delete by restoring the record' do
+            Entity.exists?(flanchan_id).should be_falsey
+
+            put change_path(PaperTrail::Version.where(item_id: flanchan_id, item_type: 'Entity').last)
+
+            found = Entity.find(flanchan_id)
+            expect(found.status).to eq 'The Embodiment of Scarlet Devil'
+          end
         end
 
-        it 'rollbacks an edit by reverting to the previous state' do
-          @reimu.reload
-          expect(@reimu.status).to eq 'Perfect Cherry Blossom'
-
-          put change_path(@reimu.versions.last)
-
-          @reimu.reload
-          expect(@reimu.status).to eq 'Phantasmagoria of Dimensional Dream'
-        end
-
-        it 'rollbacks a delete by restoring the record' do
-          Entity.exists?(@flanchan.id).should be_falsey
-
-          put change_path(PaperTrail::Version.where(item_id: @flanchan.id, item_type: 'Entity').last)
-
-          flanchan = Entity.find(@flanchan.id)
-          expect(flanchan.status).to eq 'The Embodiment of Scarlet Devil'
-        end
+        # TODO
+        # context "when not authorized" do
+        #   it "should display an error if user is not allowed to revert that change"
+        # end
       end
 
       # TODO
-      # context "when not authorized" do
-      #   it "should display an error if user is not allowed to revert that change"
+      # context "that don't exist" do
+      #   it "should display an error that the change doesn't exist"
       # end
     end
-
-    # TODO
-    # context "that don't exist" do
-    #   it "should display an error that the change doesn't exist"
-    # end
   end
 end
