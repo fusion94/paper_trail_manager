@@ -1,6 +1,6 @@
 gem "paper_trail_manager", :path => __FILE__ + "/../../../"
 
-create_file 'app/assets/config/manifest.js'
+create_file 'app/assets/config/manifest.js' unless File.exist?('app/assets/config/manifest.js')
 append_to_file 'app/assets/config/manifest.js', "//= link application.css\n"
 append_to_file 'app/assets/config/manifest.js', "//= link application.js\n"
 
