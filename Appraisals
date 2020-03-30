@@ -12,6 +12,8 @@
       gem "sqlite3", rails_version == "6.0.0" ? "~> 1.4" : "~> 1.3.6"
       gem "paper_trail", "~> #{paper_trail_version}"
       gem "will_paginate", "~> 3.0"
+
+      gem "webpacker" if rails_version == "6.0.0"
     end
 
     appraise "rails-#{rails_version}-paper_trail-#{paper_trail_version}-kaminari" do
@@ -20,6 +22,8 @@
       gem "sqlite3", rails_version == "6.0.0" ? "~> 1.4" : "~> 1.3.6"
       gem "paper_trail", "~> #{paper_trail_version}"
       gem "kaminari", ">= 0.16"
+
+      gem "webpacker" if rails_version == "6.0.0"
     end
   end
 end
