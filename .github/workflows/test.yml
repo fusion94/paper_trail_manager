@@ -22,6 +22,10 @@ jobs:
           - 2.5.7
           - 2.6.5
         gemfile:
+          - gemfiles/rails_4.2.2_paper_trail_3.0_kaminari.gemfile
+          - gemfiles/rails_4.2.2_paper_trail_3.0_will_paginate.gemfile
+          - gemfiles/rails_4.2.2_paper_trail_4.0_kaminari.gemfile
+          - gemfiles/rails_4.2.2_paper_trail_4.0_will_paginate.gemfile
           - gemfiles/rails_4.2.2_paper_trail_5.0_kaminari.gemfile
           - gemfiles/rails_4.2.2_paper_trail_5.0_will_paginate.gemfile
           - gemfiles/rails_4.2.2_paper_trail_6.0_kaminari.gemfile
@@ -40,8 +44,6 @@ jobs:
           - gemfiles/rails_5.0.0_paper_trail_8.0_will_paginate.gemfile
           - gemfiles/rails_5.1.0_paper_trail_10.0_kaminari.gemfile
           - gemfiles/rails_5.1.0_paper_trail_10.0_will_paginate.gemfile
-          - gemfiles/rails_5.1.0_paper_trail_6.0_kaminari.gemfile
-          - gemfiles/rails_5.1.0_paper_trail_6.0_will_paginate.gemfile
           - gemfiles/rails_5.1.0_paper_trail_7.0_kaminari.gemfile
           - gemfiles/rails_5.1.0_paper_trail_7.0_will_paginate.gemfile
           - gemfiles/rails_5.1.0_paper_trail_8.0_kaminari.gemfile
@@ -52,6 +54,8 @@ jobs:
           - gemfiles/rails_5.2.0_paper_trail_10.0_will_paginate.gemfile
           - gemfiles/rails_5.2.0_paper_trail_9.0_kaminari.gemfile
           - gemfiles/rails_5.2.0_paper_trail_9.0_will_paginate.gemfile
+          - gemfiles/rails_6.0.0_paper_trail_10.0_kaminari.gemfile
+          - gemfiles/rails_6.0.0_paper_trail_10.0_will_paginate.gemfile
 
     env:
       BUNDLER_VERSION: 1.17.3
