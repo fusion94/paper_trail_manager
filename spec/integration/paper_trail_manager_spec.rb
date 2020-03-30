@@ -2,15 +2,15 @@ require 'spec_helper'
 
 describe PaperTrailManager, :versioning => true do
   def version
-    return assigns[:version]
+    assigns[:version]
   end
 
   def versions
-    return assigns[:versions]
+    assigns[:versions]
   end
 
   def item_types
-    return versions.map(&:item_type).uniq.sort
+    versions.map(&:item_type).uniq.sort
   end
 
   def populate
@@ -35,7 +35,7 @@ describe PaperTrailManager, :versioning => true do
       it "should have no changes by default" do
         get "/changes"
 
-        assigns[:versions].should be_empty
+        expect(response.body).to include("No changes found")
       end
     end
   end
@@ -58,15 +58,17 @@ describe PaperTrailManager, :versioning => true do
             before { get changes_path }
 
             it "should have all changes" do
-              versions.size.should == 10
+              expect(response.body).to have_tag(".change_row", count: 10)
             end
 
             it "should have changes for all changed item types" do
-              item_types.should == ["Entity", "Platform"]
+              expect(response.body).to have_tag(".change_item", text: /Entity/)
+              expect(response.body).to have_tag(".change_item", text: /Platform/)
             end
 
             it "should order changes with newest and highest id at the top" do
-              versions.map(&:id).should == versions.sort_by { |o| [o.created_at, o.id] }.reverse.map(&:id)
+              ids = response.body.scan(/Change #(\d+)/).flatten.map(&:to_i)
+              expect(ids).to eq ids.sort.reverse
             end
           end
         end
@@ -82,11 +84,12 @@ describe PaperTrailManager, :versioning => true do
           before { get changes_path(:type => "Entity") }
 
           it "should show a subset of the changes" do
-            versions.size.should == 6
+            expect(response.body).to have_tag(".change_row", count: 6)
           end
 
           it "should have changes only for that type" do
-            item_types.should == ["Entity"]
+            expect(response.body).to have_tag(".change_item", text: /Entity/)
+            expect(response.body).not_to have_tag(".change_item", text: /Platform/)
           end
         end
 
@@ -101,15 +104,16 @@ describe PaperTrailManager, :versioning => true do
           before { get changes_path(:type => "Entity", :id => @reimu.id) }
 
           it "should show a subset of the changes" do
-            versions.size.should == 3
+            expect(response.body).to have_tag(".change_row", count: 3)
           end
 
           it "should have changes only for that type" do
-            item_types.should == ["Entity"]
+            expect(response.body).to have_tag(".change_item", text: /Entity/)
+            expect(response.body).not_to have_tag(".change_item", text: /Platform/)
           end
 
           it "should have changes only for that record" do
-            versions.map(&:item_id).uniq.should == [@reimu.id]
+            expect(response.body.scan(%r{/entities/(#{@reimu.id})}).flatten.uniq).to eq [@reimu.id.to_s]
           end
         end
 
@@ -129,15 +133,15 @@ describe PaperTrailManager, :versioning => true do
           end
 
           it "should show the requested change" do
-            version.should == @version
+            expect(response.body).to have_tag(".change_id", text: "Change ##{@version.id}")
           end
 
           it "should show a change with the right event" do
-            version.event.should == "update"
+            expect(response.body).to have_tag(".change_event_update")
           end
 
           it "should be associated with the expected record" do
-            version.item.should == @reimu
+            expect(response.body).to have_tag(".change_item", text: "Entity #{@reimu.id}")
           end
         end
 

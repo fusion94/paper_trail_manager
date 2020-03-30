@@ -4,8 +4,13 @@ require 'rubygems'
 
 require "bundler/gem_tasks"
 Bundler::GemHelper.install_tasks
-APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
-load 'rails/tasks/engine.rake'
+
+app_rakefile_path = File.expand_path("../spec/dummy/Rakefile", __FILE__)
+
+if File.exist?(app_rakefile_path)
+  APP_RAKEFILE = app_rakefile_path
+  load 'rails/tasks/engine.rake'
+end
 
 require 'rake'
 require 'rdoc/task'
@@ -22,3 +27,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+task :generate_spec_app do
+  sh 'rm -rf spec/dummy'
+  sh 'rails new spec/dummy --skip-bootsnap --skip-bundle --skip-yarn \
+    --skip-git --skip-action-mailer --skip-puma --skip-test --skip-coffee \
+    --skip-spring --skip-listen --skip-turbolinks \
+    --template=spec/app_template.rb'
+end

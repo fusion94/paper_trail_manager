@@ -17,15 +17,15 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rails", [">= 3.0", "< 5.0"]
-  spec.add_dependency "paper_trail", [">= 3.0", "< 5.0"]
+  spec.add_dependency "rails", [">= 3.0", "< 7.0"]
+  spec.add_dependency "paper_trail", [">= 3.0"]
 
   spec.add_development_dependency "rake", "~> 10.4"
-  spec.add_development_dependency "sqlite3", "~> 1.3"
+  spec.add_development_dependency "sqlite3", ">= 1.3.6"
   spec.add_development_dependency "factory_girl_rails", "~> 4.0"
   spec.add_development_dependency "rspec-rails", "~> 3.0"
+  spec.add_development_dependency "rspec-html-matchers", "~> 0.9.2"
   spec.add_development_dependency "rspec-activemodel-mocks", "~> 1.0"
   spec.add_development_dependency "rspec-its", "~> 1.0"
   spec.add_development_dependency "appraisal", "~> 1.0"
 end
-
