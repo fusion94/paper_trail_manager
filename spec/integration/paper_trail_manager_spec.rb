@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-describe PaperTrailManager, :versioning => true do
+describe PaperTrailManager, versioning: true do
   def version
     assigns[:version]
   end
@@ -14,33 +16,33 @@ describe PaperTrailManager, :versioning => true do
   end
 
   def populate
-      @reimu = FactoryGirl.create(:entity, :name => "Miko Hakurei Reimu", :status => "Highly Responsive to Prayers")
-      @reimu.update_attributes(:name => "Hakurei Reimu", :status => "Phantasmagoria of Dimensional Dream")
-      @reimu.update_attributes(:status => "Perfect Cherry Blossom")
+    @reimu = FactoryGirl.create(:entity, name: 'Miko Hakurei Reimu', status: 'Highly Responsive to Prayers')
+    @reimu.update(name: 'Hakurei Reimu', status: 'Phantasmagoria of Dimensional Dream')
+    @reimu.update(status: 'Perfect Cherry Blossom')
 
-      @sakuya = FactoryGirl.create(:entity, :name => "Sakuya Izayoi", :status => "Flowering Night")
+    @sakuya = FactoryGirl.create(:entity, name: 'Sakuya Izayoi', status: 'Flowering Night')
 
-      @flanchan = FactoryGirl.create(:entity, :name => "Flandre Scarlet", :status => "The Embodiment of Scarlet Devil")
-      @flanchan.destroy
+    @flanchan = FactoryGirl.create(:entity, name: 'Flandre Scarlet', status: 'The Embodiment of Scarlet Devil')
+    @flanchan.destroy
 
-      @kyuu_hachi = FactoryGirl.create(:platform, :name => "PC-9801", :status => "SUGOI!!1!")
-      @kyuu_hachi.update_attributes(:status => "Kimochi warui.")
-      @kyuu_hachi.destroy
+    @kyuu_hachi = FactoryGirl.create(:platform, name: 'PC-9801', status: 'SUGOI!!1!')
+    @kyuu_hachi.update(status: 'Kimochi warui.')
+    @kyuu_hachi.destroy
 
-      @uinodouzu = FactoryGirl.create(:platform, :name => "Mikorusofto Uinodouzu", :status => 'o-O')
+    @uinodouzu = FactoryGirl.create(:platform, name: 'Mikorusofto Uinodouzu', status: 'o-O')
   end
 
-  context "without changes" do
-    context "index" do
-      it "should have no changes by default" do
-        get "/changes"
+  context 'without changes' do
+    context 'index' do
+      it 'has no changes by default' do
+        get '/changes'
 
-        expect(response.body).to include("No changes found")
+        expect(response.body).to include('No changes found')
       end
     end
   end
 
-  context "with changes" do
+  context 'with changes' do
     before do
       populate
     end
@@ -51,22 +53,22 @@ describe PaperTrailManager, :versioning => true do
       PaperTrail::Version.destroy_all
     end
 
-    context "index" do
-      context "when getting all changes" do
-        context "and authorized" do
-          context "and getting default index" do
+    context 'index' do
+      context 'when getting all changes' do
+        context 'and authorized' do
+          context 'and getting default index' do
             before { get changes_path }
 
-            it "should have all changes" do
-              expect(response.body).to have_tag(".change_row", count: 10)
+            it 'has all changes' do
+              expect(response.body).to have_tag('.change_row', count: 10)
             end
 
-            it "should have changes for all changed item types" do
-              expect(response.body).to have_tag(".change_item", text: /Entity/)
-              expect(response.body).to have_tag(".change_item", text: /Platform/)
+            it 'has changes for all changed item types' do
+              expect(response.body).to have_tag('.change_item', text: /Entity/)
+              expect(response.body).to have_tag('.change_item', text: /Platform/)
             end
 
-            it "should order changes with newest and highest id at the top" do
+            it 'orders changes with newest and highest id at the top' do
               ids = response.body.scan(/Change #(\d+)/).flatten.map(&:to_i)
               expect(ids).to eq ids.sort.reverse
             end
@@ -79,17 +81,17 @@ describe PaperTrailManager, :versioning => true do
         # end
       end
 
-      context "when getting changes for a specific type" do
-        context "that exists" do
-          before { get changes_path(:type => "Entity") }
+      context 'when getting changes for a specific type' do
+        context 'that exists' do
+          before { get changes_path(type: 'Entity') }
 
-          it "should show a subset of the changes" do
-            expect(response.body).to have_tag(".change_row", count: 6)
+          it 'shows a subset of the changes' do
+            expect(response.body).to have_tag('.change_row', count: 6)
           end
 
-          it "should have changes only for that type" do
-            expect(response.body).to have_tag(".change_item", text: /Entity/)
-            expect(response.body).not_to have_tag(".change_item", text: /Platform/)
+          it 'has changes only for that type' do
+            expect(response.body).to have_tag('.change_item', text: /Entity/)
+            expect(response.body).not_to have_tag('.change_item', text: /Platform/)
           end
         end
 
@@ -99,20 +101,20 @@ describe PaperTrailManager, :versioning => true do
         # end
       end
 
-      context "when getting changes for a specific record" do
-        context "that exists" do
-          before { get changes_path(:type => "Entity", :id => @reimu.id) }
+      context 'when getting changes for a specific record' do
+        context 'that exists' do
+          before { get changes_path(type: 'Entity', id: @reimu.id) }
 
-          it "should show a subset of the changes" do
-            expect(response.body).to have_tag(".change_row", count: 3)
+          it 'shows a subset of the changes' do
+            expect(response.body).to have_tag('.change_row', count: 3)
           end
 
-          it "should have changes only for that type" do
-            expect(response.body).to have_tag(".change_item", text: /Entity/)
-            expect(response.body).not_to have_tag(".change_item", text: /Platform/)
+          it 'has changes only for that type' do
+            expect(response.body).to have_tag('.change_item', text: /Entity/)
+            expect(response.body).not_to have_tag('.change_item', text: /Platform/)
           end
 
-          it "should have changes only for that record" do
+          it 'has changes only for that record' do
             expect(response.body.scan(%r{/entities/(#{@reimu.id})}).flatten.uniq).to eq [@reimu.id.to_s]
           end
         end
@@ -124,24 +126,24 @@ describe PaperTrailManager, :versioning => true do
       end
     end
 
-    context "show a change" do
-      context "that exists" do
-        context "when authorized" do
+    context 'show a change' do
+      context 'that exists' do
+        context 'when authorized' do
           before do
             @version = @reimu.versions.last
             get change_path(@version)
           end
 
-          it "should show the requested change" do
-            expect(response.body).to have_tag(".change_id", text: "Change ##{@version.id}")
+          it 'shows the requested change' do
+            expect(response.body).to have_tag('.change_id', text: "Change ##{@version.id}")
           end
 
-          it "should show a change with the right event" do
-            expect(response.body).to have_tag(".change_event_update")
+          it 'shows a change with the right event' do
+            expect(response.body).to have_tag('.change_event_update')
           end
 
-          it "should be associated with the expected record" do
-            expect(response.body).to have_tag(".change_item", text: "Entity #{@reimu.id}")
+          it 'is associated with the expected record' do
+            expect(response.body).to have_tag('.change_item', text: "Entity #{@reimu.id}")
           end
         end
 
@@ -158,12 +160,12 @@ describe PaperTrailManager, :versioning => true do
     end
   end
 
-  context "when rolling back changes" do
-    context "that that exist" do
-      before(:each) { populate }
+  context 'when rolling back changes' do
+    context 'that that exist' do
+      before { populate }
 
-      context "when authorized" do
-        it "should rollback a newly-created record by deleting it" do
+      context 'when authorized' do
+        it 'rollbacks a newly-created record by deleting it' do
           Entity.exists?(@reimu.id).should be_truthy
 
           put change_path(@reimu.versions.first)
@@ -171,23 +173,23 @@ describe PaperTrailManager, :versioning => true do
           Entity.exists?(@reimu.id).should be_falsey
         end
 
-        it "should rollback an edit by reverting to the previous state" do
+        it 'rollbacks an edit by reverting to the previous state' do
           @reimu.reload
-          @reimu.status.should == "Perfect Cherry Blossom"
+          @reimu.status.should == 'Perfect Cherry Blossom'
 
           put change_path(@reimu.versions.last)
 
           @reimu.reload
-          @reimu.status.should == "Phantasmagoria of Dimensional Dream"
+          @reimu.status.should == 'Phantasmagoria of Dimensional Dream'
         end
 
-        it "should rollback a delete by restoring the record" do
+        it 'rollbacks a delete by restoring the record' do
           Entity.exists?(@flanchan.id).should be_falsey
 
-          put change_path(PaperTrail::Version.where(:item_id => @flanchan.id, :item_type => "Entity").last)
+          put change_path(PaperTrail::Version.where(item_id: @flanchan.id, item_type: 'Entity').last)
 
           flanchan = Entity.find(@flanchan.id)
-          flanchan.status.should == "The Embodiment of Scarlet Devil"
+          flanchan.status.should == 'The Embodiment of Scarlet Devil'
         end
       end
 
