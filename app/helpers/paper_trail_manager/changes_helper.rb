@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class PaperTrailManager
   module ChangesHelper
     # Return HTML representing the +object+, which is either its text or a stylized "nil".
     def text_or_nil(object)
       if object.nil?
-        return content_tag("em", "nil")
+        content_tag('em', 'nil')
       else
-        return h(object)
+        h(object)
       end
     end
 
@@ -26,16 +28,18 @@ class PaperTrailManager
     #   }
     def changes_for(version)
       case version.event
-      when "create", "update"
+      when 'create', 'update'
         return {} unless version.changeset
+
         version.changeset.inject({}) do |changes, (attr, (prev, curr))|
-          changes.store(attr, {previous: prev, current: curr}) && changes
+          changes.store(attr, { previous: prev, current: curr }) && changes
         end
-      when "destroy"
+      when 'destroy'
         record = version_reify(version)
         return {} unless record
-        record.attributes.reject{|k,v| v.nil?}.inject({}) do |changes, (attr, value)|
-          changes.store(attr, {previous: value, current: nil}) && changes
+
+        record.attributes.reject { |_k, v| v.nil? }.inject({}) do |changes, (attr, value)|
+          changes.store(attr, { previous: value, current: nil }) && changes
         end
       else
         raise ArgumentError, "Unknown event: #{version.event}"
@@ -51,7 +55,7 @@ class PaperTrailManager
         name = "#{version.item_type} #{version.item_id}"
       end
 
-      return h(name)
+      h(name)
     end
 
     def change_item_types
@@ -62,10 +66,10 @@ class PaperTrailManager
 
     # Returns HTML link for the item stored in the version, e.g. a link to a Company record stored in the version.
     def change_item_link(version)
-      if url = change_item_url(version)
-        return link_to(change_title_for(version), url, :class => 'change_item')
+      if (url = change_item_url(version))
+        link_to(change_title_for(version), url, class: 'change_item')
       else
-        return content_tag(:span, change_title_for(version), :class => 'change_item')
+        content_tag(:span, change_title_for(version), class: 'change_item')
       end
     end
 
