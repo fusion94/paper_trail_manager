@@ -1,0 +1,43 @@
+{
+  "name": "paper_trail_viewer",
+  "version": "1.0.0",
+  "description": "Browse changes to records when using Ruby on Rails and the `paper_trail` gem.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "npx webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaynetics/paper_trail_viewer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaynetics/paper_trail_viewer/issues"
+  },
+  "homepage": "https://github.com/jaynetics/paper_trail_viewer#readme",
+  "dependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/react": "^17.0.41",
+    "@types/react-dom": "^17.0.14",
+    "@types/react-modal": "^3.13.1",
+    "babel-loader": "^8.2.4",
+    "react": "^16.14.0",
+    "react-diff-viewer": "^3.1.1",
+    "react-dom": "^16.14.0",
+    "react-hook-form": "^7.28.1",
+    "react-modal": "^3.14.4",
+    "ts-loader": "^9.2.8",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
+}

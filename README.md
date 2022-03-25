@@ -1,73 +1,29 @@
-[![Build Status](https://secure.travis-ci.org/fusion94/paper_trail_manager.png)](http://travis-ci.org/fusion94/paper_trail_manager)
+# PaperTrailViewer
 
-# PaperTrailManager
-
-Browse, subscribe, view and revert changes to records when using Ruby on Rails 3 and the `paper_trail` gem.
-
-This software has been in use for a year at http://calagator.org and http://epdx.org. It works well. It has reasonable tests. However, it could definitely use more work.
+Browse changes to records when using Ruby on Rails and the `paper_trail` gem.
 
 ## Installation
 
-If you have a Ruby on Rails 3 or 4 application where you're using the `paper_trail` gem to track changes to your records, you can make use of this like:
+Add `paper_trail_viewer` to your bundle and add the following line to your `config/routes.rb`:
 
-Add the following line to your `Gemfile`:
+    mount PaperTrailViewer::Engine => '/changes'
 
-    gem 'paper_trail_manager'
+Restart the server and go to the chosen path to view your versions.
 
-PaperTrailManager will use your existing paging library ([will_paginate](https://github.com/mislav/will_paginate) or [Kaminari](https://github.com/amatsuda/kaminari)).  If you don't currently use one in your app, add one of the following lines to your `Gemfile`:
+To limit access do something like:
 
-    gem 'kaminari'
-    #or
-    gem 'will_paginate'
-
-Install the libary:
-
-    bundle install
-
-Add the following line to your `config/routes.rb`:
-
-    resources :changes, :controller => 'paper_trail_manager/changes'
-
-Restart the server and go to the `/changes` URI to browse, subscribe, view and revert your changes. The top-level URL will look something like this:
-
-    http://localhost:3000/changes
+    authenticate :user, ->*{ |u| u.superadmin? } do
+      mount PaperTrailViewer::Engine => '/changes'
+    end
 
 ### Configuration
 
-Several aspects of PaperTrailManager may be optionally configured
-by creating an initializer in your application
-(e.g. `config/initializers/paper_trail_manager.rb`).
+Put configuration in `config/initializers/paper_trail_viewer.rb`.
 
-To specify when reverts are allowed:
+E.g. for linking (or not) to the user with a custom path helper:
 
-    PaperTrailManager.allow_revert_when do |controller, version|
-      controller.current_user and controller.current_user.admin?
-    end
-
-To specify how to look up users/memebers/etc specified in Paper Trail's 'whodunnit' column:
-
-    PaperTrailManager.whodunnit_class = User
-    PaperTrailManager.whodunnit_name_method = :nicename   # defaults to :name
-
-To specify a method to call to identify an item on an index page:
-
-    PaperTrailManager.item_name_method = :nicename
-
-And for linking (or not) to the user with a custom path helper:
-
-    PaperTrailManager.user_path_method = :admin_path # defaults to :user_path
-    PaperTrailManager.user_path_method = nil # no "show user" page in app
-
-When including PaperTrailManager within another Rails engine, you may need to
-override PaperTrailManager::ChangesController's parent class to reference the
-engine's ApplicationController configure it to use your engine's url helpers:
-
-    PaperTrailManager.base_controller = "MyEngine::ApplicationController"
-    PaperTrailManager.route_helpers = MyEngine::Engine.routes.url_helpers
-
-You can also specify the layout:
-
-    PaperTrailManager.layout = 'my_engine/application'
+    PaperTrailViewer.user_path_method = :admin_path # defaults to :user_path
+    PaperTrailViewer.user_path_method = nil # no "show user" page in app
 
 ## Development
 
@@ -75,7 +31,7 @@ Setup:
 
 * Clone the repository
 * Go into the directory
-* Run `bundle` to install the development dependencies
+* Run `bundle && npm install` to install the development dependencies
 
 Running tests:
 
@@ -84,26 +40,17 @@ Running tests:
 Adding support for new Rails versions:
 
 * This repo uses the [Appraisal](https://github.com/thoughtbot/appraisal) gem, to add a new rails version modify the Appraisals file
-  - Add both a 'will_paginate' and a 'kaminari' version like so:
-  ```
-  appraise "rails-5.0-will-paginate" do
-    gem "rails", "5.0.0"
-    gem "will_paginate", "~> 3.0"
-  end
-  appraise "rails-5.0-will-kaminari" do
-    gem "rails", "5.0.0"
-    gem "kaminari", "~> 0.16"
-  end
-  ```
 * Run `appraisal generate`
 * Run `appraisal install`
+* Run `appraisal rake generate_spec_app`
+* Run `appraisal rake`
 * Fix whatever breaks.
-* Please contribute your fixes with a Github pull request.
+* Please contribute your fixes with a GitHub pull request.
 
 ## License
 
-This program is provided under an MIT open source license, read the [LICENSE.txt](http://github.com/igal/paper_trail_manager/blob/master/LICENSE.txt) file for details.
+This program is provided under an MIT open source license, read the [LICENSE.txt](http://github.com/igal/paper_trail_viewer/blob/master/LICENSE.txt) file for details.
 
 ## To Note:
 
-This project was originally devloped by [Igal Koshevoy](http://github.com/igal). Unfortunately @igal passed away on April 9th, 2013 and I took over the project afterwords.
+This project started as a fork of [PaperTrailManager](https://github.com/fusion94/paper_trail_manager), which was originally developed by [Igal Koshevoy](http://github.com/igal), [Reid Beels](https://github.com/reidab), and [Micah Geisel](https://github.com/botandrose).

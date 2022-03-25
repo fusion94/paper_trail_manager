@@ -1,4 +1,7 @@
-Copyright 2011 Igal Koshevoy
+Copyright for portions of paper_trail_viewer are held by Igal Koshevoy, 2011,
+as part of project paper_trail_manager.
+
+All other copyright for paper_trail_viewer is held by Janosch Müller, 2022.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
