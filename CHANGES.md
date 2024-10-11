@@ -1,6 +1,12 @@
 Changes to `paper_trail_manager`
 ================================
 
+* 0.7.0
+    * Add support for Rails 5 and 6
+    * Add support for paper_trail 5.x – 10.x
+    * Drop support for Rails < 4.1
+    * Drop support for Ruby < 2.5
+
 * 0.6.0
     * Add support for linking changes to user records via `PaperTrailManager.whodunnit_name_method` and `PaperTrailManager.user_path_method`
     * Add new `PaperTrailManager.item_name_method` configuration option

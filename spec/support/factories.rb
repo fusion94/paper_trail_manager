@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'factory_girl_rails'
 
 FactoryGirl.define do
@@ -11,4 +13,3 @@ FactoryGirl.define do
     sequence(:status) { |n| "status_#{n}" }
   end
 end
-
