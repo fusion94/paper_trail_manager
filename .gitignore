@@ -1,6 +1,5 @@
 /.bundle/
 /.yardoc
-Gemfile.lock
 /_yardoc/
 /coverage/
 /doc/
@@ -12,5 +11,4 @@ Gemfile.lock
 *.o
 *.a
 mkmf.log
-*.gemfile.lock
 spec/dummy
